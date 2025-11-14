@@ -104,7 +104,7 @@ const Navigation = () => {
       }`}
     >
       <div className="container relative mx-auto min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
-        {/* Desktop Navigation */}
+          {/* Desktop Navigation */}
         <div className="justify-start items-center gap-4 lg:flex hidden flex-row">
           <NavigationMenu className="flex justify-start items-start">
             <NavigationMenuList className="flex justify-start gap-4 flex-row">
@@ -171,9 +171,9 @@ const Navigation = () => {
               src="/logo-ammarco.png"
               alt="AMMARCO Engineering Associates"
               className="h-16 md:h-20 w-auto"
-            />
-          </Link>
-        </div>
+                />
+              </Link>
+          </div>
 
         {/* Right Side Actions */}
         <div className="flex justify-end w-full gap-4 items-center">
@@ -184,19 +184,19 @@ const Navigation = () => {
             <Phone className="w-4 h-4" />
             <span className="hidden xl:inline">+92 333 5766744</span>
           </a>
-          <Button
+            <Button
             variant="ghost"
             className="hidden lg:inline-flex text-foreground"
-            asChild
-          >
+              asChild
+            >
             <Link to="/about">About</Link>
           </Button>
           <Button className="bg-accent hover:bg-accent/90 text-white font-semibold" asChild>
-            <Link to="/contact">Get a Quote</Link>
-          </Button>
-        </div>
+              <Link to="/contact">Get a Quote</Link>
+            </Button>
+          </div>
 
-        {/* Mobile Menu Button */}
+          {/* Mobile Menu Button */}
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button
             variant="ghost"
@@ -236,23 +236,23 @@ const Navigation = () => {
                           ))}
                       </>
                     )}
-                  </div>
-                </div>
+        </div>
+      </div>
               ))}
               <div className="pt-4 border-t space-y-3">
                 <Button variant="outline" className="w-full" asChild>
                   <Link to="/about" onClick={() => setOpen(false)}>
                     About Us
-                  </Link>
+              </Link>
                 </Button>
                 <Button className="w-full bg-accent hover:bg-accent/90 text-white" asChild>
                   <Link to="/contact" onClick={() => setOpen(false)}>
-                    Get a Quote
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          )}
+                Get a Quote
+              </Link>
+            </Button>
+          </div>
+        </div>
+      )}
         </div>
       </div>
     </header>

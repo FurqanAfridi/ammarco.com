@@ -14,7 +14,7 @@ const About = () => {
             Who We Are
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 max-w-3xl">
-            Ammarco is only one of its kinds, sole entity having its associated network in Islamabad, established and registered with Government of Pakistan.
+            Ammarco is only of its kind, sole entity having its associated network accross Pakistan, established and registered with professional engineering and construction enterprises.
           </p>
         </div>
       </section>

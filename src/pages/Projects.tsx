@@ -4,12 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Phone, Mail, MapPin, CheckCircle2 } from "lucide-react";
+import { MapPin, CheckCircle2 } from "lucide-react";
 
 const Projects = () => {
   const [filter, setFilter] = useState("All");
 
-  const categories = ["All", "Government", "Banking", "Commercial", "Industrial", "Ongoing", "Completed"];
+  const categories = ["All", "Development", "Commercial", "Residential", "INGO"];
 
   const featuredProjects = [
     {
@@ -17,7 +17,7 @@ const Projects = () => {
       title: "HBL Branch Renovations",
       client: "Habib Bank Limited (HBL)",
       status: "Currently Working",
-      category: "Banking",
+      category: "INGO",
       location: "Across Pakistan",
       description: "Complete renovation and modernization of HBL front-line branches across Pakistan. Our scope includes interior refurbishment, electrical upgrades, HVAC installation, and security system integration.",
       scope: [
@@ -36,11 +36,6 @@ const Projects = () => {
         "Advanced security measures",
         "Regulatory compliance",
       ],
-      contact: {
-        name: "Maj. Tanveer Ahmad",
-        email: "tanveer.ahmad@hbl.com",
-        phone: "051-2823082",
-      },
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070",
     },
     {
@@ -48,7 +43,7 @@ const Projects = () => {
       title: "USAID Energy Distribution Projects",
       client: "USAID",
       status: "Completed",
-      category: "Government",
+      category: "Development",
       location: "All over Pakistan",
       description: "Comprehensive renovation and upgrade of electricity distribution company offices across Pakistan, including IESCO, MEPCO, PESCO, LESCO, FESCO, and KESCO. Additionally, fabrication of specialized Ravi Rear Decks for pickup vehicles used in field operations.",
       scope: [
@@ -68,11 +63,6 @@ const Projects = () => {
         "FESCO (Faisalabad Electric Supply Company)",
         "KESCO (Karachi Electric Supply Company)",
       ],
-      contact: {
-        name: "Syed Munir Raza Zaidi",
-        email: "Faceimpact.pk1@gmail.com",
-        phone: "0333-5140877",
-      },
       image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2035",
     },
     {
@@ -80,7 +70,7 @@ const Projects = () => {
       title: "DAI KPG Project",
       client: "DAI (Development Alternatives Inc.) - KPG Project",
       status: "Completed",
-      category: "Government",
+      category: "Development",
       location: "Islamabad, Pakistan",
       description: "Supply and installation of HVAC systems, security cabins, and anti-blast films for the Khyber Pakhtunkhwa Governance (KPG) Project offices in Islamabad.",
       scope: [
@@ -98,11 +88,6 @@ const Projects = () => {
         "Environmental controls",
         "Security compliance",
       ],
-      contact: {
-        name: "M Ali Shah",
-        email: "Ali_Shah@dai.com",
-        phone: "0310-9993346",
-      },
       image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069",
     },
     {
@@ -131,11 +116,6 @@ const Projects = () => {
         "Energy-efficient lighting",
         "Climate-controlled space",
       ],
-      contact: {
-        name: "Abbas Kareem (CEO)",
-        email: "abbaskarim@naklahwear.com",
-        phone: "0321-5175749",
-      },
       image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2069",
     },
   ];
@@ -150,7 +130,7 @@ const Projects = () => {
     },
     {
       title: "Face Impact Projects",
-      category: "Government",
+      category: "Development",
       location: "Pakistan",
       description: "USAID coordination and implementation services.",
       image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2035",
@@ -164,7 +144,7 @@ const Projects = () => {
     },
     {
       title: "FR Constructions",
-      category: "Industrial",
+      category: "Residential",
       location: "Pakistan",
       description: "Joint construction ventures and collaborative projects.",
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070",
@@ -178,7 +158,7 @@ const Projects = () => {
     },
     {
       title: "High Rise Engineering Services",
-      category: "Industrial",
+      category: "Residential",
       location: "Pakistan",
       description: "High-rise construction projects and vertical development.",
       image: "https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2070",
@@ -192,7 +172,7 @@ const Projects = () => {
     },
     {
       title: "KP Government Projects",
-      category: "Government",
+      category: "Development",
       location: "Khyber Pakhtunkhwa",
       description: "Government infrastructure and development projects.",
       image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2035",
@@ -384,32 +364,6 @@ const Projects = () => {
                         )}
                       </div>
 
-                      {project.contact && (
-                        <div className="border-t border-border pt-6">
-                          <p className="font-heading font-semibold mb-3 text-foreground">Contact Person:</p>
-                          <div className="space-y-2">
-                            <p className="text-sm font-medium">{project.contact.name}</p>
-                            {project.contact.email && (
-                              <a
-                                href={`mailto:${project.contact.email}`}
-                                className="flex items-center gap-2 text-sm text-primary hover:text-secondary transition-colors"
-                              >
-                                <Mail className="w-4 h-4" />
-                                {project.contact.email}
-                              </a>
-                            )}
-                            {project.contact.phone && (
-                              <a
-                                href={`tel:${project.contact.phone.replace(/\s/g, '')}`}
-                                className="flex items-center gap-2 text-sm text-primary hover:text-secondary transition-colors"
-                              >
-                                <Phone className="w-4 h-4" />
-                                {project.contact.phone}
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
                 </motion.div>

@@ -87,7 +87,7 @@ const HeroSection = () => {
       variants={containerVariants}
     >
       {/* Left Side: Content */}
-      <div className="flex w-full flex-col justify-between p-8 md:w-1/2 md:p-12 lg:w-3/5 lg:p-8">
+      <div className="flex w-full flex-col justify-between p-8 md:w-1/2 md:p-12 lg:w-2/5 lg:p-8">
         {/* Top Section: Logo & Main Content */}
         <div>
           <motion.header className="mb-2" variants={itemVariants}>
@@ -95,7 +95,7 @@ const HeroSection = () => {
               <img
                 src="/logo-ammarco.png"
                 alt="AMMARCO Engineering Associates"
-                className="h-16 md:h-20 lg:h-24 w-auto"
+                className="h-24 md:h-32 lg:h-40 w-auto"
               />
               <div className="ml-4">
                 <p className="text-lg md:text-2xl font-bold text-foreground">AMMARCO</p>
@@ -118,7 +118,7 @@ const HeroSection = () => {
               variants={itemVariants}
             ></motion.div>
             <motion.p
-              className="mb-4 max-w-md text-base text-muted-foreground leading-relaxed"
+              className="mb-4 max-w-md text-lg md:text-xl text-muted-foreground leading-relaxed"
               variants={itemVariants}
             >
               Quality and Durability wrapped in a combination of Archetypal Contemporary
@@ -158,7 +158,7 @@ const HeroSection = () => {
                 { number: count3, suffix: "+", label: "Years Experience" },
                 { number: count1, suffix: "+", label: "Projects Delivered" },
                 { number: count4, suffix: "+", label: "Happy Clients" },
-                { number: "PEC", suffix: "", label: "C-6 Registered" },
+                { number: "PEC", suffix: "", label: "Registered" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -231,7 +231,7 @@ const HeroSection = () => {
 
       {/* Right Side: Image with Clip Path Animation */}
       <motion.div
-        className="w-full min-h-[400px] bg-cover bg-center md:w-1/2 md:min-h-full lg:w-2/5 relative"
+        className="w-full min-h-[400px] bg-cover bg-center md:w-1/2 md:min-h-full lg:w-3/5 relative"
         style={{
           backgroundImage: `url(https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070)`,
         }}

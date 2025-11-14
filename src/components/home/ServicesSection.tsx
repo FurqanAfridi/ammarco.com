@@ -1,10 +1,10 @@
-import { Building2, Zap, Wind, Shield, Droplets, Sun, Power, Wifi, Layout } from "lucide-react";
+import { Building2, Zap, Wind, Shield, Droplets, Sun, Power, Wifi, Palette } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ServicesSection = () => {
   const services = [
     {
-      icon: Layout,
+      icon: Palette,
       title: "Interior & Exterior Design",
       description: "Professional interior and exterior design consultancy for business & residential projects.",
       details: "Our Executive and Technical Experts handle group housings, schools, hotels, industrial and commercial buildings with dedication.",

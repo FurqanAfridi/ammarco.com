@@ -89,14 +89,22 @@ const Footer = () => {
                   +92 333 5766744
                 </a>
               </li>
-              <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-secondary flex-shrink-0" />
-                <a
-                  href="mailto:ammarco.pk@gmail.com"
-                  className="text-gray-300 hover:text-secondary transition-colors"
-                >
-                  ammarco.pk@gmail.com
-                </a>
+              <li className="flex items-start space-x-3">
+                <Mail className="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
+                <div className="space-y-1">
+                  <a
+                    href="mailto:info@ammarco.pk"
+                    className="text-gray-300 hover:text-secondary transition-colors block"
+                  >
+                    info@ammarco.pk
+                  </a>
+                  <a
+                    href="mailto:ammarco.pk@gmail.com"
+                    className="text-gray-300 hover:text-secondary transition-colors block"
+                  >
+                    ammarco.pk@gmail.com
+                  </a>
+                </div>
               </li>
             </ul>
           </div>

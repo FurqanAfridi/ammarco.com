@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Linkedin, Phone, Mail } from "lucide-react";
+import { Linkedin } from "lucide-react";
 
 const LeadershipSection = () => {
   const leaders = [
@@ -7,8 +7,6 @@ const LeadershipSection = () => {
       name: "Ammar Mahdi",
       title: "CEO & Founder",
       role: "Chief Executive Officer",
-      contact: "+92 333 5766744",
-      email: "ammarco.pk@gmail.com",
       linkedin: "#",
       description: "Visionary leader driving Ammarco's growth and strategic direction",
     },
@@ -30,8 +28,6 @@ const LeadershipSection = () => {
       name: "Mr. Imran Haider",
       title: "Director Technical",
       role: "Technical Support",
-      contact: "+92 332 9626792",
-      email: "ammarco.pk@gmail.com",
       linkedin: "#",
       description: "Leading technical support and engineering solutions",
     },
@@ -84,24 +80,6 @@ const LeadershipSection = () => {
                 )}
                 {leader.description && (
                   <p className="text-xs text-muted-foreground mb-4 leading-relaxed">{leader.description}</p>
-                )}
-
-                {/* Contact Info */}
-                {leader.contact && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <Phone className="w-3 h-3 text-primary" />
-                    <a href={`tel:${leader.contact.replace(/\s/g, '')}`} className="text-xs text-primary hover:text-secondary transition-colors">
-                      {leader.contact}
-                    </a>
-                  </div>
-                )}
-                {leader.email && (
-                  <div className="flex items-center gap-2 mb-4">
-                    <Mail className="w-3 h-3 text-primary" />
-                    <a href={`mailto:${leader.email}`} className="text-xs text-primary hover:text-secondary transition-colors">
-                      {leader.email}
-                    </a>
-                  </div>
                 )}
 
                 {/* LinkedIn Link */}
