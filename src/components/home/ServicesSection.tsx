@@ -1,31 +1,61 @@
-import { Building2, Zap, Wind, Shield } from "lucide-react";
+import { Building2, Zap, Wind, Shield, Droplets, Sun, Power, Wifi, Layout } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ServicesSection = () => {
   const services = [
     {
+      icon: Layout,
+      title: "Interior & Exterior Design",
+      description: "Professional interior and exterior design consultancy for business & residential projects.",
+      details: "Our Executive and Technical Experts handle group housings, schools, hotels, industrial and commercial buildings with dedication.",
+    },
+    {
       icon: Building2,
-      title: "Civil Construction",
-      description: "Comprehensive construction solutions for commercial, residential, and institutional projects.",
-      details: "From ground-up construction to renovations, we deliver structurally sound and aesthetically pleasing buildings.",
+      title: "Civil Works",
+      description: "Active engagement in Civil Construction Works with skilled and qualified engineers.",
+      details: "Construction of modern & institutional buildings, hospitals, parking areas, malls, celebration & event halls using superior grade materials.",
     },
     {
       icon: Zap,
-      title: "Electrical Systems",
-      description: "Advanced electrical installations and power distribution systems for all project scales.",
-      details: "Complete electrical solutions including power systems, lighting, backup generators, and smart automation.",
+      title: "Electrical Works",
+      description: "Complete electrical fitting services for commercial and residential sectors.",
+      details: "Excellent quality electrical fitting materials from authorized vendors with complete planning and designing.",
+    },
+    {
+      icon: Droplets,
+      title: "Plumbing Services",
+      description: "Comprehensive plumbing services including sewer, drainage, and septic systems.",
+      details: "Sewer and drainage pipe fittings, septic tanks, manholes with operational inspection before handover.",
     },
     {
       icon: Wind,
       title: "HVAC Solutions",
-      description: "Energy-efficient heating, ventilation, and air conditioning systems for optimal comfort.",
-      details: "Custom HVAC design, installation, and maintenance ensuring perfect climate control and air quality.",
+      description: "Complete HVAC installations with Firefighting & Panic Alarms.",
+      details: "Energy-efficient heating, ventilation, and air conditioning systems ensuring optimal comfort and safety.",
     },
     {
       icon: Shield,
       title: "Security Systems",
-      description: "State-of-the-art security and surveillance solutions for comprehensive protection.",
-      details: "Integrated security systems including CCTV, access control, alarm systems, and monitoring solutions.",
+      description: "State-of-the-art security solutions including CCTV, alarms, and solar panels.",
+      details: "Integrated security systems with CCTV, security alarms, generators, UPS, and comprehensive monitoring solutions.",
+    },
+    {
+      icon: Sun,
+      title: "Solar Panels",
+      description: "Sustainable solar energy solutions for your projects.",
+      details: "Eco-friendly solar panel installations providing reliable renewable energy options.",
+    },
+    {
+      icon: Power,
+      title: "Generators & UPS",
+      description: "Uninterrupted power supply solutions for continuous operations.",
+      details: "Backup power systems including generators and UPS to ensure your operations never stop.",
+    },
+    {
+      icon: Wifi,
+      title: "Data & Voice Networking",
+      description: "Complete networking infrastructure and communication solutions.",
+      details: "Data and voice networking, distribution switchgears, control panels, communication racks, and data cabinets.",
     },
   ];
 
@@ -44,7 +74,7 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
               key={index}

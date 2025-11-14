@@ -1,13 +1,16 @@
 const ClientsSection = () => {
   const clients = [
-    "KP Government",
-    "USAID",
     "HBL",
-    "NUST",
-    "AKDN",
-    "Ministry of IT",
-    "SAIF Group",
-    "DAI",
+    "USAID",
+    "DAI KPG Project",
+    "Naklah Supplies",
+    "IKAN Engineering",
+    "Face Impact",
+    "Torque Engineering",
+    "FR Constructions",
+    "Vector Engineering",
+    "High Rise Engineering",
+    "Octagon Engineering",
   ];
 
   return (
