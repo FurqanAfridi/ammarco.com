@@ -86,7 +86,7 @@ const Services = () => {
         "Operational inspection",
         "Quality verification before handover",
       ],
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2069",
+      image: "/plumbing.png",
     },
     {
       icon: Wind,
@@ -104,7 +104,7 @@ const Services = () => {
         "System optimization and upgrades",
         "24/7 technical support",
       ],
-      image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=2070",
+      image: "/HVAC.webp",
     },
     {
       icon: Flame,
@@ -121,7 +121,7 @@ const Services = () => {
         "Safety compliance audits",
         "Regular maintenance and testing",
       ],
-      image: "https://images.unsplash.com/photo-1504610926078-a1611febcad3?q=80&w=2080",
+      image: "/Fire-Alarms-Blare.jpg",
     },
     {
       icon: Shield,
@@ -172,7 +172,7 @@ const Services = () => {
         "Maintenance services",
         "24/7 monitoring",
       ],
-      image: "https://images.unsplash.com/photo-1536001946369-28e2b2a5babc?q=80&w=2128",
+      image: "/differences-between-generators-and-ups-systems.webp",
     },
     {
       icon: Wifi,

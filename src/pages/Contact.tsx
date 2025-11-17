@@ -267,7 +267,7 @@ const Contact = () => {
                 <h2 className="text-3xl font-heading font-bold mb-6 text-primary">Location Map</h2>
                 <div className="rounded-2xl overflow-hidden shadow-xl h-[500px] border border-border">
                   <iframe
-                    src="https://www.google.com/maps?q=33.6937736,73.0652015&hl=en&z=17&output=embed"
+                    src="https://www.google.com/maps?q=33.6937736,73.0652015&hl=en&z=14&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}

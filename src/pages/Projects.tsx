@@ -128,49 +128,7 @@ const Projects = () => {
       description: "Collaborative engineering projects and technical support services.",
       image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2070",
     },
-    {
-      title: "Face Impact Projects",
-      category: "Development",
-      location: "Pakistan",
-      description: "USAID coordination and implementation services.",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2035",
-    },
-    {
-      title: "Torque Engineering Services",
-      category: "Commercial",
-      location: "Pakistan",
-      description: "Technical services collaboration and engineering partnerships.",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2069",
-    },
-    {
-      title: "FR Constructions",
-      category: "Residential",
-      location: "Pakistan",
-      description: "Joint construction ventures and collaborative projects.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070",
-    },
-    {
-      title: "Vector Engineering Services",
-      category: "Commercial",
-      location: "Pakistan",
-      description: "Technical support services and engineering solutions.",
-      image: "https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?q=80&w=2070",
-    },
-    {
-      title: "High Rise Engineering Services",
-      category: "Residential",
-      location: "Pakistan",
-      description: "High-rise construction projects and vertical development.",
-      image: "https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2070",
-    },
-    {
-      title: "Octagon Engineering",
-      category: "Commercial",
-      location: "Pakistan",
-      description: "Multi-disciplinary projects and engineering partnerships.",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069",
-    },
-    {
+        {
       title: "KP Government Projects",
       category: "Development",
       location: "Khyber Pakhtunkhwa",
@@ -179,7 +137,7 @@ const Projects = () => {
     },
   ];
 
-  const allProjects = [...featuredProjects.map(p => ({ ...p, featured: true })), ...otherProjects];
+  const allProjects = [...featuredProjects.map(p => ({ ...p, featured: true })), ...otherProjects.map(p => ({ ...p, featured: false }))];
   const filteredProjects = filter === "All" ? allProjects : allProjects.filter((p) => p.category === filter);
 
   const stats = [

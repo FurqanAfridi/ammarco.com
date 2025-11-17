@@ -99,7 +99,7 @@ const HeroSection = () => {
               />
               <div className="ml-4">
                 <p className="text-lg md:text-2xl font-bold text-foreground">AMMARCO</p>
-                <p className="text-xs tracking-wider text-muted-foreground">
+                <p className="text-xs tracking-wider text-foreground">
                   ENGINEERING ASSOCIATES
                 </p>
               </div>

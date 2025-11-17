@@ -21,10 +21,10 @@ const CompanyOverviewSection = () => {
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p className="text-lg">
-                Ammarco is only one of its kinds, sole entity having its associated network in Islamabad, established and registered with Government of Pakistan.
+              Ammarco is the exclusive registered entity of its kind in Pakistan, supported by a comprehensive network and official government accreditation.
               </p>
               <p className="text-lg">
-                Ammarco gratifies itself in bringing in its professional services for interior & exterior design consultancy, planning and execution of business & residential projects. Equipped with specialized and experienced team of technical staff; Engineers, Sub Engineers, Electricians, Plumbers, Painters, Masons and Labor.
+                Ammarco gratifies itself in bringing in its professional services for interior & exterior design consultancy, planning and execution of business & residential projects. Equipped with specialized and experienced team of technical staff; Civil Engineers, Electrical Engineers, Mechanical Engineers, MEP Engineers & Sub Engineers.
               </p>
               <p className="text-lg">
                 Ammarco Engineering Associates is a young multi-disciplinary enterprise based in Islamabad. Our designs draw onboard perception of inspired ideas and innovative problem solving, cultivated through the multi-cultural setting within our offices. The end result is vibrant, energetic and original architectural solutions that explore the juxtaposition of modern architecture, nature and traditional designs.

@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import LeadershipSection from "@/components/home/LeadershipSection";
 import { Award, Globe, Users, TrendingUp } from "lucide-react";
 
 const About = () => {
@@ -77,7 +78,7 @@ const About = () => {
               Ammarco Engineering Associates is a young multi-disciplinary enterprise based in Islamabad, established and registered with the Government of Pakistan. Our designs draw onboard perception of inspired ideas and innovative problem solving, cultivated through the multi-cultural setting within our offices.
             </p>
             <p className="text-lg leading-relaxed mb-6">
-              We gratify ourselves in bringing professional services for interior & exterior design consultancy, planning and execution of business & residential projects. Equipped with specialized and experienced team of technical staff including Engineers, Sub Engineers, Electricians, Plumbers, Painters, Masons and Labor.
+              We gratify ourselves in bringing professional services for interior & exterior design consultancy, planning and execution of business & residential projects. Equipped with specialized and experienced team of technical staff including Civil Engineers, Electrical Engineers, Mechanical Engineers, MEP Engineers & Sub Engineers.
             </p>
             <p className="text-lg leading-relaxed mb-6">
               We bring together extensive capabilities and resources to each project, not just through our talented and experienced professionals but also as a strategic partner to our clients. We implement unique principal in-charge of concepts providing high level of executive input and oversight to all projects.
@@ -88,6 +89,9 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Visionary Leadership */}
+      <LeadershipSection />
 
       {/* Values Section */}
       <section className="py-20 bg-primary text-white">

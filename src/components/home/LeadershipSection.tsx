@@ -9,6 +9,7 @@ const LeadershipSection = () => {
       role: "Chief Executive Officer",
       linkedin: "#",
       description: "Visionary leader driving Ammarco's growth and strategic direction",
+      image: "/Ammar.jpeg",
     },
     {
       name: "Syed Tajdar Nazar Gillani",
@@ -16,6 +17,7 @@ const LeadershipSection = () => {
       role: "Operations Excellence",
       linkedin: "#",
       description: "Overseeing all operational excellence and project delivery",
+      image: "/Tajdar.jpeg",
     },
     {
       name: "M. Furqan Javed Afridi",
@@ -23,6 +25,7 @@ const LeadershipSection = () => {
       role: "Technology & Human Resources",
       linkedin: "#",
       description: "Managing technology infrastructure and human resources",
+      image: "/Furqan.jpeg",
     },
     {
       name: "Mr. Imran Haider",
@@ -30,6 +33,7 @@ const LeadershipSection = () => {
       role: "Technical Support",
       linkedin: "#",
       description: "Leading technical support and engineering solutions",
+      image: null,
     },
   ];
 
@@ -60,13 +64,21 @@ const LeadershipSection = () => {
               whileHover={{ y: -8, scale: 1.02 }}
               className="group bg-card rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-xl transition-all duration-300"
             >
-              {/* Avatar Placeholder */}
-              <div className="w-full h-72 bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <div className="w-28 h-28 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                  <span className="text-5xl font-heading font-bold text-white">
-                    {leader.name.charAt(0)}
-                  </span>
-                </div>
+              {/* Avatar */}
+              <div className="w-full aspect-[5/7] bg-gradient-to-br from-primary to-secondary flex items-center justify-center relative">
+                {leader.image ? (
+                  <img
+                    src={leader.image}
+                    alt={leader.name}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-28 h-28 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                    <span className="text-5xl font-heading font-bold text-white">
+                      {leader.name.charAt(0)}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Content */}

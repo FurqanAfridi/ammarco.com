@@ -115,7 +115,7 @@ const Navigation = () => {
                       <Link to={item.href}>
                         <Button
                           variant="ghost"
-                          className={`${
+                          className={`font-bold ${
                             location.pathname === item.href ? "text-secondary" : "text-foreground"
                           }`}
                         >
@@ -125,7 +125,7 @@ const Navigation = () => {
                     </NavigationMenuLink>
                   ) : (
                     <>
-                      <NavigationMenuTrigger className="font-medium text-sm text-foreground">
+                      <NavigationMenuTrigger className="font-bold text-sm text-foreground">
                         {item.title}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="!w-[450px] p-4">
@@ -191,7 +191,7 @@ const Navigation = () => {
             >
             <Link to="/about">About</Link>
           </Button>
-          <Button className="bg-accent hover:bg-accent/90 text-white font-semibold" asChild>
+          <Button className="bg-accent hover:bg-accent/90 text-white font-bold" asChild>
               <Link to="/contact">Get a Quote</Link>
             </Button>
           </div>
@@ -216,7 +216,7 @@ const Navigation = () => {
                         className="flex justify-between items-center"
                         onClick={() => setOpen(false)}
                       >
-                        <span className="text-lg font-medium">{item.title}</span>
+                        <span className="text-lg font-bold">{item.title}</span>
                         <MoveRight className="w-4 h-4 stroke-1 text-muted-foreground" />
                       </Link>
                     ) : (
