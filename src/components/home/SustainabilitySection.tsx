@@ -14,7 +14,7 @@ const SustainabilitySection = () => {
 
   return (
     <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Image Side */}
           <div className="relative h-[500px] lg:h-[600px] rounded-3xl overflow-hidden group">

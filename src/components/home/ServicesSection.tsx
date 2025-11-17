@@ -64,7 +64,7 @@ const ServicesSection = () => {
       {/* Decorative diagonal */}
       <div className="absolute top-0 left-0 right-0 h-24 bg-background" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 0)" }} />
 
-      <div className="container mx-auto px-4 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
             What We Do

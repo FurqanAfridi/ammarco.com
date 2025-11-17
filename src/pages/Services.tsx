@@ -198,14 +198,14 @@ const Services = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 gradient-accent text-white relative overflow-hidden">
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 gradient-accent text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-primary" />
-        <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 sm:mb-6"
           >
             Comprehensive Engineering Solutions
           </motion.h1>
@@ -228,9 +228,9 @@ const Services = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: index * 0.1 }}
-          className={`py-20 ${index % 2 === 0 ? "bg-background" : "bg-muted"}`}
+          className={`py-12 sm:py-16 md:py-20 ${index % 2 === 0 ? "bg-background" : "bg-muted"}`}
         >
-          <div className="container mx-auto px-4 lg:px-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div
               className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                 index % 2 === 1 ? "lg:grid-flow-dense" : ""
@@ -242,7 +242,7 @@ const Services = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className={`relative h-96 rounded-3xl overflow-hidden shadow-2xl ${
+                className={`relative h-64 sm:h-80 md:h-96 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ${
                   index % 2 === 1 ? "lg:col-start-2" : ""
                 }`}
               >
@@ -305,8 +305,8 @@ const Services = () => {
       ))}
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-white">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
+      <section className="py-12 sm:py-16 md:py-20 bg-primary text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

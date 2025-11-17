@@ -154,14 +154,14 @@ const Projects = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/80 text-white relative overflow-hidden">
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-br from-primary to-primary/80 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-primary" />
-        <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 sm:mb-6"
           >
             Our Work Speaks for Itself
           </motion.h1>
@@ -177,9 +177,9 @@ const Projects = () => {
       </section>
 
       {/* Project Statistics */}
-      <section className="py-16 bg-gradient-to-br from-primary to-primary/80 text-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-primary to-primary/80 text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -189,10 +189,10 @@ const Projects = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl font-heading font-bold mb-2 text-secondary">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-2 text-secondary">
                   {stat.value}
                 </div>
-                <div className="text-sm md:text-base text-gray-200">
+                <div className="text-xs sm:text-sm md:text-base text-gray-200">
                   {stat.label}
                 </div>
               </motion.div>
@@ -203,7 +203,7 @@ const Projects = () => {
 
       {/* Filter Buttons */}
       <section className="py-12 bg-muted sticky top-28 z-40 backdrop-blur-md bg-muted/95">
-        <div className="container mx-auto px-4 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <Button
@@ -226,7 +226,7 @@ const Projects = () => {
       {/* Featured Projects */}
       {filter === "All" && (
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -333,7 +333,7 @@ const Projects = () => {
 
       {/* Projects Grid */}
       <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -17,7 +17,7 @@ const ClientsSection = () => {
 
   return (
     <section className="py-20 bg-muted overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8 mb-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
       <h2 className="text-4xl md:text-5xl font-heading font-bold text-center text-primary mb-4">
           Clientele
         </h2>

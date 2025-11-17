@@ -9,20 +9,20 @@ const About = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/80 text-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6">
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-br from-primary to-primary/80 text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 sm:mb-6">
             Who We Are
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200 max-w-3xl">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl">
             Ammarco is only of its kind, sole entity having its associated network accross Pakistan, established and registered with professional engineering and construction enterprises.
           </p>
         </div>
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-4xl font-heading font-bold mb-6 text-primary">Our Mission</h2>
@@ -44,8 +44,8 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 bg-muted">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { icon: Award, number: "200+", label: "Projects Completed" },
@@ -68,8 +68,8 @@ const About = () => {
       </section>
 
       {/* Company Story */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
           <h2 className="text-4xl font-heading font-bold mb-8 text-primary text-center">
             Our Company Profile
           </h2>
@@ -94,8 +94,8 @@ const About = () => {
       <LeadershipSection />
 
       {/* Values Section */}
-      <section className="py-20 bg-primary text-white">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 bg-primary text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-heading font-bold mb-12 text-center">Customer Expectations</h2>
           <p className="text-center text-gray-200 mb-12 text-xl max-w-3xl mx-auto">
             Our customers expect from us and we deliver:

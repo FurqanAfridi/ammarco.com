@@ -75,14 +75,14 @@ const Contact = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 gradient-accent text-white relative overflow-hidden">
+      <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 gradient-accent text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-primary" />
-        <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 sm:mb-6"
           >
             Let's Build Something Amazing Together
           </motion.h1>
@@ -90,7 +90,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto px-2"
           >
             Get in touch with our team
           </motion.p>
@@ -98,8 +98,8 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Map */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div
@@ -329,8 +329,8 @@ const Contact = () => {
       </section>
 
       {/* Corporate Office */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 bg-muted">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

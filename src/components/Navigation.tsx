@@ -103,7 +103,7 @@ const Navigation = () => {
         isScrolled ? "shadow-lg" : ""
       }`}
     >
-      <div className="container relative mx-auto min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
+      <div className="container relative mx-auto min-h-20 flex gap-2 sm:gap-4 flex-row lg:grid lg:grid-cols-3 items-center py-2">
           {/* Desktop Navigation */}
         <div className="justify-start items-center gap-4 lg:flex hidden flex-row">
           <NavigationMenu className="flex justify-start items-start">
@@ -170,7 +170,7 @@ const Navigation = () => {
             <img
               src="/logo-ammarco.png"
               alt="AMMARCO Engineering Associates"
-              className="h-16 md:h-20 w-auto"
+              className="h-20 w-auto flex-shrink-0"
                 />
               </Link>
           </div>
