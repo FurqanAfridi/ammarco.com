@@ -42,14 +42,32 @@ jobs:
         run: npm run build
 
       - name: Upload build to server
+        id: upload
+        continue-on-error: true
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
+          timeout: 120s
+          command_timeout: 20m
           source: dist
           target: /tmp/ammarco-release-${{ github.run_id }}
+
+      - name: Retry build upload after network timeout
+        if: steps.upload.outcome == 'failure'
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
+          timeout: 120s
+          command_timeout: 20m
+          source: dist
+          target: /tmp/ammarco-release-${{ github.run_id }}
+          overwrite: true
 
       - name: Activate build and rotate backups
         uses: appleboy/ssh-action@v1
@@ -60,6 +78,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
+          timeout: 120s
           envs: RELEASE_ID
           script: |
             set -eu
