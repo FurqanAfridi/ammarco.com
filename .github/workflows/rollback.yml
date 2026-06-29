@@ -28,6 +28,7 @@ jobs:
         env:
           BACKUP_NAME: ${{ inputs.backup_name }}
           ROLLBACK_ID: ${{ github.run_id }}
+          SERVER_MAIN_PASSWORD: ${{ secrets.SERVER_MAIN_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
           port: ${{ secrets.SERVER_PORT }}
@@ -35,7 +36,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
-          envs: BACKUP_NAME,ROLLBACK_ID
+          envs: BACKUP_NAME,ROLLBACK_ID,SERVER_MAIN_PASSWORD
           script: |
             set -eu
 
@@ -81,12 +82,12 @@ jobs:
               exit 1
             fi
 
-            if ! sudo -n nginx -t || ! sudo -n systemctl restart nginx; then
+            if ! echo "$SERVER_MAIN_PASSWORD" | sudo -S nginx -t || ! echo "$SERVER_MAIN_PASSWORD" | sudo -S systemctl restart nginx; then
               rm -rf "$DIST_DIR"
               if [ -d "$PREVIOUS_DIR" ]; then
                 mv "$PREVIOUS_DIR" "$DIST_DIR"
               fi
-              sudo -n systemctl restart nginx || true
+              echo "$SERVER_MAIN_PASSWORD" | sudo -S systemctl restart nginx || true
               exit 1
             fi
 
