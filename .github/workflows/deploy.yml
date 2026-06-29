@@ -1,0 +1,112 @@
+name: Deploy production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ammarco-production
+  cancel-in-progress: false
+
+jobs:
+  verify-build-deploy:
+    name: Check, build, and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript checks
+        run: npm run typecheck
+
+      - name: Build production site
+        run: npm run build
+
+      - name: Upload build to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_PASSWORD_SSH }}
+          passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
+          source: dist
+          target: /tmp/ammarco-release-${{ github.run_id }}
+
+      - name: Activate build and rotate backups
+        uses: appleboy/ssh-action@v1
+        env:
+          RELEASE_ID: ${{ github.run_id }}
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_PASSWORD_SSH }}
+          passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
+          envs: RELEASE_ID
+          script: |
+            set -eu
+
+            APP_DIR=/srv/www/ammarco.pk/ammarco-prime-forge
+            DIST_DIR="$APP_DIR/dist"
+            BACKUP_DIR=/srv/www/ammarco.pk/backups
+            RELEASE_ROOT="/tmp/ammarco-release-$RELEASE_ID"
+            RELEASE_DIR="$RELEASE_ROOT/dist"
+            STAGING_DIR="$APP_DIR/.dist-staging-$RELEASE_ID"
+            PREVIOUS_DIR="$APP_DIR/.dist-previous-$RELEASE_ID"
+            BACKUP_NAME="deploy-$(date -u +%Y%m%dT%H%M%SZ)-$RELEASE_ID"
+
+            test -f "$RELEASE_DIR/index.html"
+            mkdir -p "$BACKUP_DIR"
+            rm -rf "$STAGING_DIR" "$PREVIOUS_DIR"
+            cp -a "$RELEASE_DIR" "$STAGING_DIR"
+
+            if [ -d "$DIST_DIR" ]; then
+              cp -a "$DIST_DIR" "$BACKUP_DIR/$BACKUP_NAME"
+              mv "$DIST_DIR" "$PREVIOUS_DIR"
+            fi
+
+            if ! mv "$STAGING_DIR" "$DIST_DIR"; then
+              if [ -d "$PREVIOUS_DIR" ]; then
+                mv "$PREVIOUS_DIR" "$DIST_DIR"
+              fi
+              exit 1
+            fi
+
+            if ! sudo -n nginx -t || ! sudo -n systemctl restart nginx; then
+              rm -rf "$DIST_DIR"
+              if [ -d "$PREVIOUS_DIR" ]; then
+                mv "$PREVIOUS_DIR" "$DIST_DIR"
+              fi
+              sudo -n systemctl restart nginx || true
+              exit 1
+            fi
+
+            rm -rf "$PREVIOUS_DIR" "$RELEASE_ROOT"
+
+            find "$BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' \
+              | sort -rn \
+              | tail -n +6 \
+              | cut -d' ' -f2- \
+              | while IFS= read -r old_backup; do
+                  rm -rf -- "$old_backup"
+                done
+
+            echo "Deployment $RELEASE_ID completed successfully."

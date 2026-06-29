@@ -1,0 +1,101 @@
+name: Roll back production
+
+on:
+  workflow_dispatch:
+    inputs:
+      backup_name:
+        description: "Backup folder to restore, or 'latest'"
+        required: true
+        default: latest
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ammarco-production
+  cancel-in-progress: false
+
+jobs:
+  rollback:
+    name: Restore server backup
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Restore backup and restart Nginx
+        uses: appleboy/ssh-action@v1
+        env:
+          BACKUP_NAME: ${{ inputs.backup_name }}
+          ROLLBACK_ID: ${{ github.run_id }}
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_PASSWORD_SSH }}
+          passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
+          envs: BACKUP_NAME,ROLLBACK_ID
+          script: |
+            set -eu
+
+            APP_DIR=/srv/www/ammarco.pk/ammarco-prime-forge
+            DIST_DIR="$APP_DIR/dist"
+            BACKUP_DIR=/srv/www/ammarco.pk/backups
+            STAGING_DIR="$APP_DIR/.dist-rollback-$ROLLBACK_ID"
+            PREVIOUS_DIR="$APP_DIR/.dist-before-rollback-$ROLLBACK_ID"
+
+            test -d "$BACKUP_DIR"
+
+            case "$BACKUP_NAME" in
+              latest|'')
+                TARGET_BACKUP=$(find "$BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' \
+                  | sort -rn \
+                  | head -n 1 \
+                  | cut -d' ' -f2-)
+                ;;
+              *[!A-Za-z0-9._-]*)
+                echo "Invalid backup name: $BACKUP_NAME"
+                exit 1
+                ;;
+              *)
+                TARGET_BACKUP="$BACKUP_DIR/$BACKUP_NAME"
+                ;;
+            esac
+
+            test -n "$TARGET_BACKUP"
+            test -f "$TARGET_BACKUP/index.html"
+
+            rm -rf "$STAGING_DIR" "$PREVIOUS_DIR"
+            cp -a "$TARGET_BACKUP" "$STAGING_DIR"
+
+            if [ -d "$DIST_DIR" ]; then
+              cp -a "$DIST_DIR" "$BACKUP_DIR/pre-rollback-$(date -u +%Y%m%dT%H%M%SZ)-$ROLLBACK_ID"
+              mv "$DIST_DIR" "$PREVIOUS_DIR"
+            fi
+
+            if ! mv "$STAGING_DIR" "$DIST_DIR"; then
+              if [ -d "$PREVIOUS_DIR" ]; then
+                mv "$PREVIOUS_DIR" "$DIST_DIR"
+              fi
+              exit 1
+            fi
+
+            if ! sudo -n nginx -t || ! sudo -n systemctl restart nginx; then
+              rm -rf "$DIST_DIR"
+              if [ -d "$PREVIOUS_DIR" ]; then
+                mv "$PREVIOUS_DIR" "$DIST_DIR"
+              fi
+              sudo -n systemctl restart nginx || true
+              exit 1
+            fi
+
+            rm -rf "$PREVIOUS_DIR"
+
+            find "$BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%T@ %p\n' \
+              | sort -rn \
+              | tail -n +6 \
+              | cut -d' ' -f2- \
+              | while IFS= read -r old_backup; do
+                  rm -rf -- "$old_backup"
+                done
+
+            echo "Restored $TARGET_BACKUP successfully."

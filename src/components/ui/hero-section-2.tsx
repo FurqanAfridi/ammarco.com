@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from "@/lib/utils";
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 
 // Icon component for contact details
 const InfoIcon = ({ type }: { type: 'website' | 'phone' | 'address' }) => {
@@ -28,7 +28,7 @@ const InfoIcon = ({ type }: { type: 'website' | 'phone' | 'address' }) => {
 };
 
 // Prop types for the HeroSection component
-interface HeroSectionProps extends React.HTMLAttributes<HTMLDivElement> {
+type HeroSectionProps = Omit<React.ComponentPropsWithoutRef<typeof motion.section>, "title"> & {
   logo?: {
     url: string;
     alt: string;
@@ -47,13 +47,13 @@ interface HeroSectionProps extends React.HTMLAttributes<HTMLDivElement> {
     phone: string;
     address: string;
   };
-}
+};
 
-const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
+const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(
   ({ className, logo, slogan, title, subtitle, callToAction, backgroundImage, contactInfo, ...props }, ref) => {
     
     // Animation variants for the container to orchestrate children animations
-    const containerVariants = {
+    const containerVariants: Variants = {
       hidden: { opacity: 0 },
       visible: {
         opacity: 1,
@@ -65,7 +65,7 @@ const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
     };
 
     // Animation variants for individual text/UI elements
-    const itemVariants = {
+    const itemVariants: Variants = {
       hidden: { y: 20, opacity: 0 },
       visible: {
         y: 0,
@@ -157,4 +157,3 @@ const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
 HeroSection.displayName = "HeroSection";
 
 export { HeroSection };
-
