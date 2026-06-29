@@ -99,9 +99,10 @@ const LeadershipSection = () => {
                   href={leader.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-10 h-10 bg-primary/10 hover:bg-primary rounded-lg transition-all duration-300 group-hover:scale-110"
+                  aria-label={`${leader.name} on LinkedIn`}
+                  className="inline-flex items-center justify-center w-10 h-10 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg transition-all duration-300 group-hover:scale-110"
                 >
-                  <Linkedin className="w-5 h-5 text-primary group-hover:text-white transition-colors" />
+                  <Linkedin className="w-5 h-5 transition-colors" />
                 </a>
               </div>
             </motion.div>
