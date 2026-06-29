@@ -31,7 +31,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_PASSWORD_SSH }}
+          password: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           envs: BACKUP_NAME,ROLLBACK_ID
           script: |

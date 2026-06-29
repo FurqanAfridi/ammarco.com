@@ -21,12 +21,12 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install dependencies
@@ -46,7 +46,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_PASSWORD_SSH }}
+          password: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           source: dist
           target: /tmp/ammarco-release-${{ github.run_id }}
@@ -58,7 +58,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_PASSWORD_SSH }}
+          password: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           envs: RELEASE_ID
           script: |
