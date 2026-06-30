@@ -13,6 +13,8 @@ const Footer = () => {
             <img 
               src="/logo-ammarco.png" 
               alt="AMMARCO Engineering Associates" 
+              loading="lazy"
+              decoding="async"
               className="h-24 w-auto mb-4"
             />
             <p className="text-gray-300 mb-6 leading-relaxed">
@@ -20,7 +22,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://linkedin.com"
+                href="https://linkedin.com/company/ammarco"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 hover:bg-secondary rounded-lg flex items-center justify-center transition-colors"
@@ -53,17 +55,17 @@ const Footer = () => {
             <h4 className="text-lg font-heading font-semibold mb-4">Services</h4>
             <ul className="space-y-3">
               {[
-                "Civil Construction",
-                "Electrical Systems",
-                "HVAC Solutions",
-                "Security Systems",
+                { label: "Civil Construction", href: "/services#civil" },
+                { label: "Electrical Systems", href: "/services#electrical" },
+                { label: "HVAC Solutions", href: "/services#hvac" },
+                { label: "Security Systems", href: "/services#security" },
               ].map((service) => (
-                <li key={service}>
+                <li key={service.label}>
                   <Link
-                    to="/services"
+                    to={service.href}
                     className="text-gray-300 hover:text-secondary transition-colors"
                   >
-                    {service}
+                    {service.label}
                   </Link>
                 </li>
               ))}

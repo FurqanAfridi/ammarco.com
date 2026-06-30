@@ -21,6 +21,8 @@ const SustainabilitySection = () => {
             <img
               src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069"
               alt="Sustainable Modern Building"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-transparent" />

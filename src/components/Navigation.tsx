@@ -170,13 +170,14 @@ const Navigation = () => {
             <img
               src="/logo-ammarco.png"
               alt="AMMARCO Engineering Associates"
-              className="h-20 w-auto flex-shrink-0"
+              decoding="async"
+              className="h-16 w-auto flex-shrink-0 sm:h-20"
                 />
               </Link>
           </div>
 
         {/* Right Side Actions */}
-        <div className="flex justify-end w-full gap-4 items-center">
+        <div className="hidden justify-end w-full gap-4 items-center lg:flex">
           <a
             href="tel:+923335766744"
             className="hidden lg:flex items-center gap-2 text-sm font-medium transition-colors text-foreground hover:text-secondary"
@@ -197,7 +198,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Menu Button */}
-        <div className="flex w-12 shrink lg:hidden items-end justify-end">
+        <div className="ml-auto flex w-12 shrink lg:hidden items-end justify-end">
           <Button
             variant="ghost"
             onClick={() => setOpen(!isOpen)}

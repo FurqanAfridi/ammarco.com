@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 const Services = () => {
   const services = [
     {
+      id: "interior",
       icon: Layout,
       title: "Interior & Exterior Design",
       description:
@@ -36,6 +37,7 @@ const Services = () => {
       image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158",
     },
     {
+      id: "civil",
       icon: Building2,
       title: "Civil Works",
       description:
@@ -54,6 +56,7 @@ const Services = () => {
       image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070",
     },
     {
+      id: "electrical",
       icon: Zap,
       title: "Electrical Works",
       description: "Complete electrical fitting services for commercial and residential sectors.",
@@ -71,6 +74,7 @@ const Services = () => {
       image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070",
     },
     {
+      id: "plumbing",
       icon: Droplets,
       title: "Plumbing Services",
       description:
@@ -89,6 +93,7 @@ const Services = () => {
       image: "/plumbing.png",
     },
     {
+      id: "hvac",
       icon: Wind,
       title: "HVAC Systems",
       description:
@@ -107,6 +112,7 @@ const Services = () => {
       image: "/HVAC.webp",
     },
     {
+      id: "firefighting",
       icon: Flame,
       title: "Firefighting & Panic Alarms",
       description: "Comprehensive fire safety systems and emergency alert installations.",
@@ -124,6 +130,7 @@ const Services = () => {
       image: "/Fire-Alarms-Blare.jpg",
     },
     {
+      id: "security",
       icon: Shield,
       title: "CCTV & Security Systems",
       description: "Advanced surveillance and security alarm systems for comprehensive protection.",
@@ -141,6 +148,7 @@ const Services = () => {
       image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070",
     },
     {
+      id: "solar",
       icon: Sun,
       title: "Solar Panel Installation",
       description: "Sustainable solar energy solutions for reduced operational costs and environmental impact.",
@@ -158,6 +166,7 @@ const Services = () => {
       image: "https://images.unsplash.com/photo-1498354178607-a79df2916198?q=80&w=2070",
     },
     {
+      id: "generators",
       icon: Power,
       title: "Generators & UPS Systems",
       description: "Reliable backup power solutions ensuring uninterrupted operations.",
@@ -175,6 +184,7 @@ const Services = () => {
       image: "/differences-between-generators-and-ups-systems.webp",
     },
     {
+      id: "networking",
       icon: Wifi,
       title: "Data & Voice Networking",
       description: "Complete IT infrastructure including communication racks, data cabinets, and networking solutions.",
@@ -223,12 +233,13 @@ const Services = () => {
       {/* Services Detail Sections */}
       {services.map((service, index) => (
         <motion.section
+          id={service.id}
           key={index}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: index * 0.1 }}
-          className={`py-12 sm:py-16 md:py-20 ${index % 2 === 0 ? "bg-background" : "bg-muted"}`}
+          className={`scroll-mt-28 py-12 sm:py-16 md:py-20 ${index % 2 === 0 ? "bg-background" : "bg-muted"}`}
         >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div
@@ -249,6 +260,8 @@ const Services = () => {
                 <img
                   src={service.image}
                   alt={service.title}
+                  loading={index < 2 ? "eager" : "lazy"}
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />

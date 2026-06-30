@@ -7,7 +7,7 @@ const LeadershipSection = () => {
       name: "Ammar Mahdi",
       title: "CEO & Founder",
       role: "Chief Executive Officer",
-      linkedin: "#",
+      linkedin: "",
       description: "Visionary leader driving Ammarco's growth and strategic direction",
       image: "/Ammar.jpeg",
     },
@@ -15,23 +15,16 @@ const LeadershipSection = () => {
       name: "Syed Tajdar Nazar Gillani",
       title: "Head of Operations",
       role: "Operations Excellence",
-      linkedin: "#",
+      linkedin: "",
       description: "Overseeing all operational excellence and project delivery",
       image: "/Tajdar.jpeg",
     },
-    {
-      name: "M. Furqan Javed Afridi",
-      title: "Head of IT & HR",
-      role: "Technology & Human Resources",
-      linkedin: "#",
-      description: "Managing technology infrastructure and human resources",
-      image: "/Furqan.jpeg",
-    },
+
     {
       name: "Mr. Imran Haider",
       title: "Director Technical",
       role: "Technical Support",
-      linkedin: "#",
+      linkedin: "",
       description: "Leading technical support and engineering solutions",
       image: null,
     },
@@ -53,7 +46,7 @@ const LeadershipSection = () => {
           <div className="w-24 h-1 bg-gradient-accent mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 max-w-7xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
           {leaders.map((leader, index) => (
             <motion.div
               key={index}
@@ -62,7 +55,7 @@ const LeadershipSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group bg-card rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group w-full max-w-sm md:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] bg-card rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-xl transition-all duration-300"
             >
               {/* Avatar */}
               <div className="w-full aspect-[5/7] bg-gradient-to-br from-primary to-secondary flex items-center justify-center relative">
@@ -70,6 +63,8 @@ const LeadershipSection = () => {
                   <img
                     src={leader.image}
                     alt={leader.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain"
                   />
                 ) : (
@@ -94,16 +89,17 @@ const LeadershipSection = () => {
                   <p className="text-xs text-muted-foreground mb-4 leading-relaxed">{leader.description}</p>
                 )}
 
-                {/* LinkedIn Link */}
-                <a
-                  href={leader.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${leader.name} on LinkedIn`}
-                  className="inline-flex items-center justify-center w-10 h-10 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg transition-all duration-300 group-hover:scale-110"
-                >
-                  <Linkedin className="w-5 h-5 transition-colors" />
-                </a>
+                {leader.linkedin && (
+                  <a
+                    href={leader.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${leader.name} on LinkedIn`}
+                    className="inline-flex items-center justify-center w-10 h-10 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-lg transition-all duration-300 group-hover:scale-110"
+                  >
+                    <Linkedin className="w-5 h-5 transition-colors" />
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}

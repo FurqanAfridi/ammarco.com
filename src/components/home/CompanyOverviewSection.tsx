@@ -44,6 +44,8 @@ const CompanyOverviewSection = () => {
               <img
                 src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2069"
                 alt="Modern architecture and design"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
@@ -59,4 +61,3 @@ const CompanyOverviewSection = () => {
 };
 
 export default CompanyOverviewSection;
-

@@ -11,8 +11,7 @@ const ClientsSection = () => {
     "/images/Ministry-of-Information-Technology-and-Telecommunication-Pakistan.jpg",
     "/images/images.jpeg",
     "/images/raf,360x360,075,t,fafafa_ca443f4786.u3.jpg",
-    "/images/NUST_Vector.svg.png",
-    "/images/images.png"
+    "/images/NUST_Vector.svg.png"
   ];
 
   return (
@@ -41,6 +40,8 @@ const ClientsSection = () => {
               <img
                 src={logo}
                 alt={`Client logo ${index + 1}`}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain"
               />
             </div>
@@ -54,6 +55,8 @@ const ClientsSection = () => {
               <img
                 src={logo}
                 alt={`Client logo ${index + 1}`}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain"
               />
             </div>

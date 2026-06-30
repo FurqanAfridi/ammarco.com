@@ -26,20 +26,38 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.projectType) {
+      toast({
+        title: "Project type required",
+        description: "Please select a project type before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const subject = `Project inquiry from ${formData.name}`;
+    const body = [
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `Phone: ${formData.phone}`,
+      `Company/Organization: ${formData.company || "N/A"}`,
+      `Project Type: ${formData.projectType}`,
+      `Project Location: ${formData.projectLocation || "N/A"}`,
+      `Estimated Budget: ${formData.budget || "N/A"}`,
+      `Project Timeline: ${formData.timeline || "N/A"}`,
+      "",
+      "Message:",
+      formData.message,
+    ].join("\n");
+
+    window.location.href = `mailto:info@ammarco.pk?cc=ammarco.pk@gmail.com&subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+
     toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you soon.",
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      projectType: "",
-      projectLocation: "",
-      budget: "",
-      timeline: "",
-      message: "",
+      title: "Email draft opened",
+      description: "Please send the prepared email from your mail app.",
     });
   };
 
@@ -173,7 +191,6 @@ const Contact = () => {
                     name="projectType"
                     value={formData.projectType}
                     onValueChange={(value) => setFormData({ ...formData, projectType: value })}
-                    required
                   >
                     <SelectTrigger className="mt-2">
                       <SelectValue placeholder="Select project type" />

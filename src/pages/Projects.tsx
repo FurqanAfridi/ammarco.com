@@ -139,6 +139,7 @@ const Projects = () => {
 
   const allProjects = [...featuredProjects.map(p => ({ ...p, featured: true })), ...otherProjects.map(p => ({ ...p, featured: false }))];
   const filteredProjects = filter === "All" ? allProjects : allProjects.filter((p) => p.category === filter);
+  const gridProjects = filter === "All" ? filteredProjects.filter((p) => !p.featured) : filteredProjects;
 
   const stats = [
     { label: "Total Projects", value: "200+" },
@@ -251,6 +252,8 @@ const Projects = () => {
                       <img
                         src={project.image}
                         alt={project.title}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-transparent" />
@@ -343,11 +346,9 @@ const Projects = () => {
             {filter === "All" ? "Other Projects" : `Projects - ${filter}`}
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects
-              .filter(p => !p.featured)
-              .map((project, index) => (
+            {gridProjects.map((project, index) => (
                 <motion.div
-                key={index}
+                  key={`${project.title}-${index}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -360,6 +361,8 @@ const Projects = () => {
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
@@ -379,6 +382,11 @@ const Projects = () => {
                 </motion.div>
             ))}
           </div>
+          {gridProjects.length === 0 && (
+            <p className="mt-10 text-center text-muted-foreground">
+              No projects found for this category yet.
+            </p>
+          )}
         </div>
       </section>
 
