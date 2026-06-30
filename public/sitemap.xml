@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://localhost:8080/</loc>
+    <loc>https://www.ammarco.pk/</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/about</loc>
+    <loc>https://www.ammarco.pk/about</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services</loc>
+    <loc>https://www.ammarco.pk/services</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#interior</loc>
+    <loc>https://www.ammarco.pk/services#interior</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#civil</loc>
+    <loc>https://www.ammarco.pk/services#civil</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#electrical</loc>
+    <loc>https://www.ammarco.pk/services#electrical</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#plumbing</loc>
+    <loc>https://www.ammarco.pk/services#plumbing</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#hvac</loc>
+    <loc>https://www.ammarco.pk/services#hvac</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#firefighting</loc>
+    <loc>https://www.ammarco.pk/services#firefighting</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#security</loc>
+    <loc>https://www.ammarco.pk/services#security</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#solar</loc>
+    <loc>https://www.ammarco.pk/services#solar</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#generators</loc>
+    <loc>https://www.ammarco.pk/services#generators</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/services#networking</loc>
+    <loc>https://www.ammarco.pk/services#networking</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/projects</loc>
+    <loc>https://www.ammarco.pk/projects</loc>
   </url>
   <url>
-    <loc>http://localhost:8080/contact</loc>
+    <loc>https://www.ammarco.pk/contact</loc>
   </url>
 </urlset>
