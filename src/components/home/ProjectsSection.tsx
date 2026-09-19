@@ -1,34 +1,17 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { projects } from "@/data/projects";
+
+const featured = ["hbl-branch-renovations", "hbl-iconic-drive-thru-atm"]
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is NonNullable<typeof project> => Boolean(project));
+
+const statusLabel = {
+  completed: "Completed",
+  ongoing: "Ongoing",
+};
 
 const ProjectsSection = () => {
-  const projects = [
-    {
-      title: "HBL Branch Renovations",
-      location: "Nationwide, Pakistan",
-      category: "Banking",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070",
-    },
-    {
-      title: "USAID & DAI Projects",
-      location: "Islamabad",
-      category: "Government",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2035",
-    },
-    {
-      title: "Institutional Buildings",
-      location: "Multiple Locations",
-      category: "Education",
-      image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2131",
-    },
-    {
-      title: "Naklah Wear Factory Outlet",
-      location: "Pakistan",
-      category: "Commercial",
-      image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2069",
-    },
-  ];
-
   return (
     <section className="bg-background py-12 sm:py-16 md:py-20 lg:py-32">
       <div className="container mx-auto">
@@ -36,61 +19,48 @@ const ProjectsSection = () => {
           <h2 className="mb-4 font-heading text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
             Selected Work
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Work we have delivered across Pakistan
+          <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
+            Completed HBL branches and a live drive-through ATM.
           </p>
         </div>
 
-        {/* Masonry-style Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {projects.map((project, index) => (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+          {featured.map((project) => (
             <Link
-              key={index}
-              to="/projects"
-              className="group relative rounded-2xl overflow-hidden hover-lift h-80 md:h-96"
+              key={project.slug}
+              to={`/projects/${project.slug}`}
+              className="group relative h-80 overflow-hidden rounded-2xl hover-lift md:h-96"
             >
-              {/* Background Image */}
               <img
-                src={project.image}
+                src={project.cover}
                 alt={project.title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-
-              {/* Content */}
-              <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                <div className="mb-3">
-                  <span className="inline-block px-3 py-1 bg-secondary/20 backdrop-blur-sm text-secondary text-sm font-medium rounded-full border border-secondary/30">
-                    {project.category}
-                  </span>
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-gray-200 mb-4">{project.location}</p>
-
-                {/* View Details Button - appears on hover */}
-                <div className="flex items-center text-secondary font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                  View Details
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-80 transition-opacity group-hover:opacity-90" />
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                <span className="mb-3 inline-block w-fit rounded-full border border-secondary/30 bg-secondary/20 px-3 py-1 text-sm font-medium text-secondary backdrop-blur-sm">
+                  {statusLabel[project.status]}
+                </span>
+                <h3 className="mb-2 font-heading text-2xl font-bold text-white sm:text-3xl">{project.title}</h3>
+                <p className="mb-4 text-gray-200">{project.location}</p>
+                <div className="flex items-center font-semibold text-secondary opacity-0 transition-opacity group-hover:opacity-100">
+                  View project
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
                 </div>
               </div>
             </Link>
           ))}
         </div>
 
-        {/* View All Projects Button */}
-        <div className="text-center mt-12">
+        <div className="mt-12 text-center">
           <Link
             to="/projects"
-            className="inline-flex items-center text-lg font-semibold text-primary hover:text-secondary transition-colors group"
+            className="group inline-flex items-center text-lg font-semibold text-primary transition-colors hover:text-secondary"
           >
-            View All Projects
-            <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+            View all projects
+            <ArrowRight className="ml-2 h-6 w-6 transition-transform group-hover:translate-x-2" />
           </Link>
         </div>
       </div>

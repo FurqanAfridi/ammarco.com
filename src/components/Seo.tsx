@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE_URL = "https://ammarcoassociates.com";
+const SITE_URL = "https://ammarco.com.pk";
 
 type SeoProps = {
   title: string;

@@ -33,10 +33,17 @@ const navigationItems = [
     ],
   },
   {
+    title: "Projects",
+    items: [
+      { title: "All Projects", href: "/projects" },
+      { title: "Completed", href: "/projects?status=completed" },
+      { title: "Ongoing", href: "/projects?status=ongoing" },
+    ],
+  },
+  {
     title: "Company",
     items: [
       { title: "About Us", href: "/about" },
-      { title: "Our Projects", href: "/projects" },
       { title: "Contact Us", href: "/contact" },
     ],
   },
@@ -59,7 +66,7 @@ const Navigation = () => {
   useEffect(() => {
     setOpen(false);
     setOpenSection(null);
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, location.search]);
 
   useEffect(() => {
     const closeOnDesktop = () => {

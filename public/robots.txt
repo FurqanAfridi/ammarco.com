@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://ammarcoassociates.com/sitemap.xml
+Sitemap: https://ammarco.com.pk/sitemap.xml

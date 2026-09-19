@@ -123,7 +123,7 @@ jobs:
             BACKUP_DIR=/srv/www/ammarco.pk/backups
             RELEASE_ROOT="/tmp/ammarco-release-$RELEASE_ID"
             RELEASE_DIR="$RELEASE_ROOT/dist"
-            NGINX_SRC="$RELEASE_ROOT/deploy/nginx/ammarcoassociates.com.conf"
+            NGINX_SRC="$RELEASE_ROOT/deploy/nginx/ammarco.com.pk.conf"
             STAGING_DIR="$APP_DIR/.dist-staging-$RELEASE_ID"
             PREVIOUS_DIR="$APP_DIR/.dist-previous-$RELEASE_ID"
             BACKUP_NAME="deploy-$(date -u +%Y%m%dT%H%M%SZ)-$RELEASE_ID"
@@ -156,12 +156,12 @@ jobs:
             fi
 
             if [ -f "$NGINX_SRC" ]; then
-              if [ ! -e /etc/nginx/sites-enabled/ammarcoassociates.com ] && [ ! -e /etc/nginx/sites-available/ammarcoassociates.com ]; then
+              if [ ! -e /etc/nginx/sites-enabled/ammarco.com.pk ] && [ ! -e /etc/nginx/sites-available/ammarco.com.pk ]; then
                 if [ -d /etc/nginx/sites-available ]; then
-                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-available/ammarcoassociates.com
-                  run_sudo ln -sfn /etc/nginx/sites-available/ammarcoassociates.com /etc/nginx/sites-enabled/ammarcoassociates.com
+                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-available/ammarco.com.pk
+                  run_sudo ln -sfn /etc/nginx/sites-available/ammarco.com.pk /etc/nginx/sites-enabled/ammarco.com.pk
                 else
-                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-enabled/ammarcoassociates.com
+                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-enabled/ammarco.com.pk
                 fi
               fi
             fi
@@ -175,9 +175,9 @@ jobs:
               exit 1
             fi
 
-            if [ ! -d /etc/letsencrypt/live/ammarcoassociates.com ]; then
-              run_sudo certbot --nginx -d ammarcoassociates.com -d www.ammarcoassociates.com --non-interactive --agree-tos --redirect -m info@ammarco.pk \
-                || echo "TLS certificate was not issued. Point DNS for ammarcoassociates.com at this server and rerun the workflow."
+            if [ ! -d /etc/letsencrypt/live/ammarco.com.pk ]; then
+              run_sudo certbot --nginx -d ammarco.com.pk -d www.ammarco.com.pk --non-interactive --agree-tos --redirect -m info@ammarco.pk \
+                || echo "TLS certificate was not issued. Point DNS for ammarco.com.pk at this server and rerun the workflow."
             fi
 
             rm -rf "$PREVIOUS_DIR" "$RELEASE_ROOT"

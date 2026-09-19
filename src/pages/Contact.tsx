@@ -407,8 +407,8 @@ const Contact = () => {
                 <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Globe className="w-4 h-4" />
-                    <a href="https://ammarcoassociates.com" className="hover:text-primary transition-colors">
-                      ammarcoassociates.com
+                    <a href="https://ammarco.com.pk" className="hover:text-primary transition-colors">
+                      ammarco.com.pk
                     </a>
                   </div>
                 </div>
