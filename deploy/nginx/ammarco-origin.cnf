@@ -1,0 +1,15 @@
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+x509_extensions = v3_req
+
+[dn]
+CN = ammarco.com.pk
+
+[v3_req]
+subjectAltName = DNS:ammarco.com.pk,DNS:www.ammarco.com.pk
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth

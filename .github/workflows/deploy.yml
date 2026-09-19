@@ -163,33 +163,15 @@ jobs:
               run_sudo ln -sfn /etc/letsencrypt/live/ammarco.com.pk/fullchain.pem "$SSL_DIR/fullchain.pem"
               run_sudo ln -sfn /etc/letsencrypt/live/ammarco.com.pk/privkey.pem "$SSL_DIR/privkey.pem"
             elif [ ! -f "$SSL_DIR/fullchain.pem" ] || [ ! -f "$SSL_DIR/privkey.pem" ]; then
-              ORIGIN_CNF=/tmp/ammarco-origin-$RELEASE_ID.cnf
               ORIGIN_KEY=/tmp/ammarco-origin-$RELEASE_ID.key
               ORIGIN_CRT=/tmp/ammarco-origin-$RELEASE_ID.crt
-              cat > "$ORIGIN_CNF" <<'EOF'
-[req]
-default_bits = 2048
-prompt = no
-default_md = sha256
-distinguished_name = dn
-x509_extensions = v3_req
-
-[dn]
-CN = ammarco.com.pk
-
-[v3_req]
-subjectAltName = DNS:ammarco.com.pk,DNS:www.ammarco.com.pk
-basicConstraints = CA:FALSE
-keyUsage = digitalSignature, keyEncipherment
-extendedKeyUsage = serverAuth
-EOF
               openssl req -x509 -nodes -newkey rsa:2048 -days 825 \
-                -keyout "$ORIGIN_KEY" -out "$ORIGIN_CRT" -config "$ORIGIN_CNF"
+                -keyout "$ORIGIN_KEY" -out "$ORIGIN_CRT" \
+                -config "$RELEASE_ROOT/deploy/nginx/ammarco-origin.cnf"
               run_sudo mv "$ORIGIN_KEY" "$SSL_DIR/privkey.pem"
               run_sudo mv "$ORIGIN_CRT" "$SSL_DIR/fullchain.pem"
               run_sudo chmod 600 "$SSL_DIR/privkey.pem"
               run_sudo chmod 644 "$SSL_DIR/fullchain.pem"
-              rm -f "$ORIGIN_CNF"
             fi
 
             if [ -f "$NGINX_SRC" ]; then
