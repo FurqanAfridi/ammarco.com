@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      ssh_port:
+        description: "SSH port if 22 is closed. Leave blank to use SERVER_PORT or 22."
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -53,6 +59,8 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      SSH_PORT: ${{ github.event.inputs.ssh_port || secrets.SERVER_PORT || 22 }}
 
     steps:
       - name: Check out repository
@@ -70,6 +78,7 @@ jobs:
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_IP }}
+          port: ${{ env.SSH_PORT }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
@@ -83,6 +92,7 @@ jobs:
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_IP }}
+          port: ${{ env.SSH_PORT }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
@@ -99,6 +109,7 @@ jobs:
           SERVER_MAIN_PASSWORD: ${{ secrets.SERVER_MAIN_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
+          port: ${{ env.SSH_PORT }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}

@@ -31,6 +31,7 @@ jobs:
           SERVER_MAIN_PASSWORD: ${{ secrets.SERVER_MAIN_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
