@@ -2,7 +2,15 @@ import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
 
 const LeadershipSection = () => {
-  const leaders = [
+  const leaders: {
+    name: string;
+    title: string;
+    role: string;
+    linkedin: string;
+    description: string;
+    image: string | null;
+    imageClass?: string;
+  }[] = [
     {
       name: "Ammar Mahdi",
       title: "CEO & Founder",
@@ -27,6 +35,15 @@ const LeadershipSection = () => {
       linkedin: "",
       description: "Heads technical support and engineering work",
       image: null,
+    },
+    {
+      name: "Ghazanfar Abbas",
+      title: "Finance Head",
+      role: "Finance",
+      linkedin: "",
+      description: "Heads finance and commercial control for Ammarco",
+      image: "/Ghazanfar-Abbas.jpg",
+      imageClass: "object-cover object-top",
     },
   ];
 
@@ -55,7 +72,7 @@ const LeadershipSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-xl sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.25rem)]"
+              className="group w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-xl sm:w-[calc(50%-0.75rem)] xl:w-[calc(25%-1.5rem)]"
             >
               {/* Avatar */}
               <div className="w-full aspect-[5/7] bg-gradient-to-br from-primary to-secondary flex items-center justify-center relative">
@@ -65,7 +82,7 @@ const LeadershipSection = () => {
                     alt={leader.name}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-contain"
+                    className={`w-full h-full ${leader.imageClass ?? "object-contain"}`}
                   />
                 ) : (
                   <div className="w-28 h-28 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">

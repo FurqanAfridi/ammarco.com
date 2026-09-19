@@ -15,6 +15,7 @@ export type ProjectRecord = {
   location: string;
   year: string;
   status: ProjectStatus;
+  featured?: boolean;
   sector: string;
   summary: string;
   metaTitle: string;
@@ -38,6 +39,17 @@ export const projectStatuses: { id: ProjectStatus; label: string; description: s
     label: "Ongoing",
     description: "Live sites where the team is still on the job.",
   },
+];
+
+export type ProjectListFilter = "featured" | ProjectStatus;
+
+export const projectListFilters: { id: ProjectListFilter; label: string; description: string }[] = [
+  {
+    id: "featured",
+    label: "Featured",
+    description: "Spotlight jobs we keep at the top of the list.",
+  },
+  ...projectStatuses,
 ];
 
 export const projects: ProjectRecord[] = [
@@ -176,6 +188,7 @@ export const projects: ProjectRecord[] = [
     location: "Pakistan",
     year: "2025 to 2026",
     status: "ongoing",
+    featured: true,
     sector: "Banking",
     summary: "Iconic HBL drive-thru ATM canopy, lane, lighting, and pylon, with site video from build through night commissioning.",
     metaTitle: "HBL Drive-Through ATM | Ammarco Projects",
@@ -384,6 +397,11 @@ export const getProjectBySlug = (slug: string) => projects.find((project) => pro
 
 export const getProjectsByStatus = (status: ProjectStatus) =>
   projects.filter((project) => project.status === status);
+
+export const getFeaturedProjects = () => projects.filter((project) => project.featured);
+
+export const getProjectsByFilter = (filter: ProjectListFilter) =>
+  filter === "featured" ? getFeaturedProjects() : getProjectsByStatus(filter);
 
 export const getRelatedProjects = (slug: string, count = 2) => {
   const current = getProjectBySlug(slug);

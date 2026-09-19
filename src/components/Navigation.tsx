@@ -36,6 +36,7 @@ const navigationItems = [
     title: "Projects",
     items: [
       { title: "All Projects", href: "/projects" },
+      { title: "Featured", href: "/projects?status=featured" },
       { title: "Completed", href: "/projects?status=completed" },
       { title: "Ongoing", href: "/projects?status=ongoing" },
     ],

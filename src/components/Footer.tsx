@@ -95,10 +95,10 @@ const Footer = () => {
                 <Mail className="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
                 <div className="space-y-1">
                   <a
-                    href="mailto:info@ammarco.pk"
+                    href="mailto:info@ammarco.com.pk"
                     className="text-gray-300 hover:text-secondary transition-colors block"
                   >
-                    info@ammarco.pk
+                    info@ammarco.com.pk
                   </a>
                   <a
                     href="mailto:ammarco.pk@gmail.com"

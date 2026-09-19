@@ -22,9 +22,11 @@ const Contact = () => {
     budget: "",
     timeline: "",
     message: "",
+    website: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.projectType) {
@@ -36,29 +38,58 @@ const Contact = () => {
       return;
     }
 
-    const subject = `Project inquiry from ${formData.name}`;
-    const body = [
-      `Name: ${formData.name}`,
-      `Email: ${formData.email}`,
-      `Phone: ${formData.phone}`,
-      `Company/Organization: ${formData.company || "N/A"}`,
-      `Project Type: ${formData.projectType}`,
-      `Project Location: ${formData.projectLocation || "N/A"}`,
-      `Estimated Budget: ${formData.budget || "N/A"}`,
-      `Project Timeline: ${formData.timeline || "N/A"}`,
-      "",
-      "Message:",
-      formData.message,
-    ].join("\n");
+    setIsSubmitting(true);
 
-    window.location.href = `mailto:info@ammarco.pk?cc=ammarco.pk@gmail.com&subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          projectType: formData.projectType,
+          projectLocation: formData.projectLocation,
+          budget: formData.budget,
+          timeline: formData.timeline,
+          message: formData.message,
+          website: formData.website,
+        }),
+      });
 
-    toast({
-      title: "Email draft opened",
-      description: "Please send the prepared email from your mail app.",
-    });
+      const payload = (await response.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+
+      if (!response.ok || !payload?.ok) {
+        throw new Error(payload?.error || "Could not send the inquiry.");
+      }
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        projectType: "",
+        projectLocation: "",
+        budget: "",
+        timeline: "",
+        message: "",
+        website: "",
+      });
+
+      toast({
+        title: "Inquiry sent",
+        description: "Thank you. The Ammarco team will get back to you shortly.",
+      });
+    } catch {
+      toast({
+        title: "Could not send inquiry",
+        description: "Please email info@ammarco.com.pk or try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -263,12 +294,25 @@ const Contact = () => {
                   />
                 </div>
 
+                <div className="hidden" aria-hidden="true">
+                  <Label htmlFor="website">Website</Label>
+                  <Input
+                    id="website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <Button
                   type="submit"
                   size="lg"
+                  disabled={isSubmitting}
                   className="w-full bg-primary hover:bg-primary/90 text-white font-semibold px-12"
                 >
-                  Submit Inquiry
+                  {isSubmitting ? "Sending..." : "Submit Inquiry"}
                 </Button>
               </form>
             </motion.div>
@@ -389,10 +433,10 @@ const Contact = () => {
                   <h3 className="font-heading font-bold mb-2">Email</h3>
                   <div className="space-y-1">
                     <a
-                      href="mailto:info@ammarco.pk"
+                      href="mailto:info@ammarco.com.pk"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors block"
                     >
-                      info@ammarco.pk
+                      info@ammarco.com.pk
                     </a>
                     <a
                       href="mailto:ammarco.pk@gmail.com"

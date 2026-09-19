@@ -1,0 +1,17 @@
+[Unit]
+Description=Ammarco website lead mailer
+After=network.target
+
+[Service]
+Type=simple
+User=deployer
+Group=deployer
+EnvironmentFile=-/srv/www/ammarco.pk/ammarco-prime-forge/.env.mail
+WorkingDirectory=/srv/www/ammarco.pk/ammarco-prime-forge
+ExecStart=/usr/bin/python3 /srv/www/ammarco.pk/ammarco-prime-forge/server/lead-mailer.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

@@ -84,7 +84,7 @@ jobs:
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
           command_timeout: 20m
-          source: dist,deploy/nginx
+          source: dist,deploy/nginx,deploy/systemd,server
           target: /tmp/ammarco-release-${{ github.run_id }}
 
       - name: Retry build upload after network timeout
@@ -98,7 +98,7 @@ jobs:
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
           command_timeout: 20m
-          source: dist,deploy/nginx
+          source: dist,deploy/nginx,deploy/systemd,server
           target: /tmp/ammarco-release-${{ github.run_id }}
           overwrite: true
 
@@ -107,6 +107,7 @@ jobs:
         env:
           RELEASE_ID: ${{ github.run_id }}
           SERVER_MAIN_PASSWORD: ${{ secrets.SERVER_MAIN_PASSWORD }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
           port: ${{ env.SSH_PORT }}
@@ -114,7 +115,7 @@ jobs:
           key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
-          envs: RELEASE_ID,SERVER_MAIN_PASSWORD
+          envs: RELEASE_ID,SERVER_MAIN_PASSWORD,SMTP_PASSWORD
           script: |
             set -eu
 
@@ -190,6 +191,33 @@ jobs:
               fi
               run_sudo systemctl reload nginx || run_sudo systemctl restart nginx || true
               exit 1
+            fi
+
+            mkdir -p "$APP_DIR/server"
+            if [ -f "$RELEASE_ROOT/server/lead-mailer.py" ]; then
+              cp "$RELEASE_ROOT/server/lead-mailer.py" "$APP_DIR/server/lead-mailer.py"
+            fi
+
+            if [ -n "${SMTP_PASSWORD:-}" ]; then
+              umask 077
+              {
+                printf 'SMTP_HOST=%s\n' 'smtp.hostinger.com'
+                printf 'SMTP_PORT=%s\n' '465'
+                printf 'SMTP_USER=%s\n' 'ammar@ammarco.com.pk'
+                printf 'SMTP_PASSWORD=%s\n' "$SMTP_PASSWORD"
+                printf 'SMTP_FROM=%s\n' 'ammar@ammarco.com.pk'
+                printf 'SMTP_TO=%s\n' 'ammarco.pk@gmail.com'
+                printf 'LEAD_HOST=%s\n' '127.0.0.1'
+                printf 'LEAD_PORT=%s\n' '3847'
+              } > "$APP_DIR/.env.mail"
+              chmod 600 "$APP_DIR/.env.mail"
+            fi
+
+            if [ -f "$RELEASE_ROOT/deploy/systemd/ammarco-lead-mailer.service" ]; then
+              run_sudo cp "$RELEASE_ROOT/deploy/systemd/ammarco-lead-mailer.service" /etc/systemd/system/ammarco-lead-mailer.service
+              run_sudo systemctl daemon-reload
+              run_sudo systemctl enable ammarco-lead-mailer
+              run_sudo systemctl restart ammarco-lead-mailer
             fi
 
             rm -rf "$PREVIOUS_DIR" "$RELEASE_ROOT"

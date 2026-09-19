@@ -8,23 +8,23 @@ import Seo from "@/components/Seo";
 import Reveal from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/button";
 import {
-  getProjectsByStatus,
-  projectStatuses,
-  type ProjectStatus,
+  getProjectsByFilter,
+  projectListFilters,
+  type ProjectListFilter,
 } from "@/data/projects";
 
-const isStatus = (value: string | null): value is ProjectStatus =>
-  value === "completed" || value === "ongoing";
+const isFilter = (value: string | null): value is ProjectListFilter =>
+  value === "featured" || value === "completed" || value === "ongoing";
 
 const Projects = () => {
   const [params, setParams] = useSearchParams();
   const { hash } = useLocation();
   const statusParam = params.get("status");
-  const filter: ProjectStatus | "all" = isStatus(statusParam) ? statusParam : "all";
+  const filter: ProjectListFilter | "all" = isFilter(statusParam) ? statusParam : "all";
 
   useEffect(() => {
     const fromHash = hash.replace("#", "");
-    if (isStatus(fromHash)) {
+    if (isFilter(fromHash)) {
       setParams({ status: fromHash }, { replace: true });
     }
   }, [hash, setParams]);
@@ -33,14 +33,14 @@ const Projects = () => {
     <div className="min-h-screen overflow-x-hidden">
       <Seo
         title="Projects in Pakistan | Ammarco"
-        description="Completed HBL branch renovations and an ongoing drive-through ATM from Ammarco Engineering Associates."
+        description="Featured HBL drive-through ATM work, completed branch renovations, and live sites from Ammarco Engineering Associates."
         path="/projects"
-        image="/projects/hbl-branch-renovations/01-mastuj-facade.jpeg"
+        image="/projects/hbl-iconic-drive-thru-atm/06-night-front.jpeg"
       />
       <Navigation />
       <PageHero
         title="Projects"
-        subtitle="Completed HBL branches and a live drive-through ATM. Each job has its own page and gallery."
+        subtitle="Featured work stays at the top. Then completed HBL branches and live sites, each with its own page and gallery."
         eyebrow="Work"
         image="/projects/hbl-iconic-drive-thru-atm/06-night-front.jpeg"
       />
@@ -54,32 +54,32 @@ const Projects = () => {
           >
             All
           </Button>
-          {projectStatuses.map((status) => (
+          {projectListFilters.map((item) => (
             <Button
-              key={status.id}
-              onClick={() => setParams({ status: status.id })}
-              variant={filter === status.id ? "default" : "outline"}
-              className={filter === status.id ? "rounded-full bg-primary text-white" : "rounded-full"}
+              key={item.id}
+              onClick={() => setParams({ status: item.id })}
+              variant={filter === item.id ? "default" : "outline"}
+              className={filter === item.id ? "rounded-full bg-primary text-white" : "rounded-full"}
             >
-              {status.label}
+              {item.label}
             </Button>
           ))}
         </div>
       </section>
 
-      {(filter === "all" ? projectStatuses : projectStatuses.filter((status) => status.id === filter)).map((status, sectionIndex) => {
-        const items = getProjectsByStatus(status.id);
+      {(filter === "all" ? projectListFilters : projectListFilters.filter((item) => item.id === filter)).map((section, sectionIndex) => {
+        const items = getProjectsByFilter(section.id);
         if (items.length === 0) {
           return null;
         }
 
         return (
-          <section key={status.id} id={status.id} className={`section ${sectionIndex % 2 === 0 ? "bg-background" : "bg-muted"}`}>
+          <section key={section.id} id={section.id} className={`section ${sectionIndex % 2 === 0 ? "bg-background" : "bg-muted"}`}>
             <div className="container mx-auto">
               <Reveal className="mb-10 max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-secondary">{status.label}</p>
-                <h2 className="mt-3 font-heading text-3xl font-semibold text-primary sm:text-4xl">{status.label} projects</h2>
-                <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-lg">{status.description}</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-secondary">{section.label}</p>
+                <h2 className="mt-3 font-heading text-3xl font-semibold text-primary sm:text-4xl">{section.label} projects</h2>
+                <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-lg">{section.description}</p>
               </Reveal>
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -98,7 +98,7 @@ const Projects = () => {
                           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-                          {status.label}
+                          {section.label}
                         </span>
                       </div>
                       <div className="flex flex-1 flex-col p-6 sm:p-8">
@@ -123,7 +123,7 @@ const Projects = () => {
         );
       })}
 
-      {filter !== "all" && getProjectsByStatus(filter).length === 0 && (
+      {filter !== "all" && getProjectsByFilter(filter).length === 0 && (
         <section className="section bg-background">
           <p className="container mx-auto text-center text-muted-foreground">No projects in this category yet.</p>
         </section>
