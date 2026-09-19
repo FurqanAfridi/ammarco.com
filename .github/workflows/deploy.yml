@@ -156,14 +156,48 @@ jobs:
               exit 1
             fi
 
+            SSL_DIR=/etc/nginx/ssl/ammarco.com.pk
+            run_sudo mkdir -p "$SSL_DIR"
+
+            if [ -f /etc/letsencrypt/live/ammarco.com.pk/fullchain.pem ] && [ -f /etc/letsencrypt/live/ammarco.com.pk/privkey.pem ]; then
+              run_sudo ln -sfn /etc/letsencrypt/live/ammarco.com.pk/fullchain.pem "$SSL_DIR/fullchain.pem"
+              run_sudo ln -sfn /etc/letsencrypt/live/ammarco.com.pk/privkey.pem "$SSL_DIR/privkey.pem"
+            elif [ ! -f "$SSL_DIR/fullchain.pem" ] || [ ! -f "$SSL_DIR/privkey.pem" ]; then
+              ORIGIN_CNF=/tmp/ammarco-origin-$RELEASE_ID.cnf
+              ORIGIN_KEY=/tmp/ammarco-origin-$RELEASE_ID.key
+              ORIGIN_CRT=/tmp/ammarco-origin-$RELEASE_ID.crt
+              cat > "$ORIGIN_CNF" <<'EOF'
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+x509_extensions = v3_req
+
+[dn]
+CN = ammarco.com.pk
+
+[v3_req]
+subjectAltName = DNS:ammarco.com.pk,DNS:www.ammarco.com.pk
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+EOF
+              openssl req -x509 -nodes -newkey rsa:2048 -days 825 \
+                -keyout "$ORIGIN_KEY" -out "$ORIGIN_CRT" -config "$ORIGIN_CNF"
+              run_sudo mv "$ORIGIN_KEY" "$SSL_DIR/privkey.pem"
+              run_sudo mv "$ORIGIN_CRT" "$SSL_DIR/fullchain.pem"
+              run_sudo chmod 600 "$SSL_DIR/privkey.pem"
+              run_sudo chmod 644 "$SSL_DIR/fullchain.pem"
+              rm -f "$ORIGIN_CNF"
+            fi
+
             if [ -f "$NGINX_SRC" ]; then
-              if [ ! -e /etc/nginx/sites-enabled/ammarco.com.pk ] && [ ! -e /etc/nginx/sites-available/ammarco.com.pk ]; then
-                if [ -d /etc/nginx/sites-available ]; then
-                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-available/ammarco.com.pk
-                  run_sudo ln -sfn /etc/nginx/sites-available/ammarco.com.pk /etc/nginx/sites-enabled/ammarco.com.pk
-                else
-                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-enabled/ammarco.com.pk
-                fi
+              if [ -d /etc/nginx/sites-available ]; then
+                run_sudo cp "$NGINX_SRC" /etc/nginx/sites-available/ammarco.com.pk
+                run_sudo ln -sfn /etc/nginx/sites-available/ammarco.com.pk /etc/nginx/sites-enabled/ammarco.com.pk
+              else
+                run_sudo cp "$NGINX_SRC" /etc/nginx/sites-enabled/ammarco.com.pk
               fi
             fi
 
@@ -174,11 +208,6 @@ jobs:
               fi
               run_sudo systemctl reload nginx || run_sudo systemctl restart nginx || true
               exit 1
-            fi
-
-            if [ ! -d /etc/letsencrypt/live/ammarco.com.pk ]; then
-              run_sudo certbot --nginx -d ammarco.com.pk -d www.ammarco.com.pk --non-interactive --agree-tos --redirect -m info@ammarco.pk \
-                || echo "TLS certificate was not issued. Point DNS for ammarco.com.pk at this server and rerun the workflow."
             fi
 
             rm -rf "$PREVIOUS_DIR" "$RELEASE_ROOT"
