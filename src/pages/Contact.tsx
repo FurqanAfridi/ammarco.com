@@ -76,6 +76,7 @@ const Contact = () => {
     "Firefighting & Alarms",
     "CCTV & Security",
     "Solar Panels",
+    "Generators & UPS",
     "Data Networking",
     "Other",
   ];
@@ -89,20 +90,20 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Navigation />
 
       {/* Hero Section */}
       <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 gradient-accent text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-primary" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="container mx-auto text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 sm:mb-6"
           >
-            Let's Build Something Amazing Together
+            Get in Touch
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -117,7 +118,7 @@ const Contact = () => {
 
       {/* Contact Form & Map */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div
@@ -126,7 +127,7 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-                <h2 className="text-3xl font-heading font-bold mb-6 text-primary">
+                <h2 className="mb-6 font-heading text-2xl font-bold text-primary sm:text-3xl">
                 Request a Quote
                 </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -257,7 +258,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="mt-2 min-h-[200px]"
+                    className="mt-2 min-h-[140px] sm:min-h-[200px]"
                     placeholder="Tell us about your project requirements..."
                   />
                 </div>
@@ -281,8 +282,8 @@ const Contact = () => {
               className="space-y-6"
             >
               <div>
-                <h2 className="text-3xl font-heading font-bold mb-6 text-primary">Location Map</h2>
-                <div className="rounded-2xl overflow-hidden shadow-xl h-[500px] border border-border">
+                <h2 className="mb-4 font-heading text-2xl font-bold text-primary sm:mb-6 sm:text-3xl">Location Map</h2>
+                <div className="h-64 overflow-hidden rounded-2xl border border-border shadow-xl sm:h-80 md:h-[420px] lg:h-[500px]">
                   <iframe
                     src="https://www.google.com/maps?q=33.6937736,73.0652015&hl=en&z=14&output=embed"
                     width="100%"
@@ -296,10 +297,10 @@ const Contact = () => {
               </div>
 
               {/* Social Media */}
-              <div className="bg-gradient-to-br from-primary to-primary/80 text-white rounded-2xl p-8">
+              <div className="rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-6 text-white sm:p-8">
                 <h3 className="font-heading font-bold text-xl mb-6">Follow Us</h3>
                 <p className="text-white/80 mb-6">
-                  Stay connected with us on social media for updates and news.
+                  Project news and company updates.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
@@ -347,7 +348,7 @@ const Contact = () => {
 
       {/* Corporate Office */}
       <section className="py-12 sm:py-16 md:py-20 bg-muted">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -358,7 +359,7 @@ const Contact = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-primary">
               Corporate Office
             </h2>
-            <div className="bg-card rounded-2xl p-8 border border-border shadow-lg">
+            <div className="rounded-2xl border border-border bg-card p-5 shadow-lg sm:p-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col items-center text-center">
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
@@ -406,8 +407,8 @@ const Contact = () => {
                 <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Globe className="w-4 h-4" />
-                    <a href="https://ammarco.pk" className="hover:text-primary transition-colors">
-                      www.ammarco.pk
+                    <a href="https://ammarcoassociates.com" className="hover:text-primary transition-colors">
+                      ammarcoassociates.com
                     </a>
                   </div>
                 </div>

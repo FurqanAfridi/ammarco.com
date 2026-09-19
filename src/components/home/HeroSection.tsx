@@ -81,25 +81,25 @@ const HeroSection = () => {
 
   return (
     <motion.section
-      className="relative flex w-full min-h-screen flex-col overflow-hidden bg-background text-foreground pt-20 pb-20 md:flex-row"
+      className="relative flex w-full min-h-0 flex-col overflow-hidden bg-background text-foreground pt-20 lg:min-h-screen lg:flex-row"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       {/* Left Side: Content */}
-      <div className="flex w-full flex-col justify-between p-8 md:w-1/2 md:p-12 lg:w-2/5 lg:p-8">
+      <div className="flex w-full min-w-0 flex-col justify-between px-4 py-8 sm:px-6 sm:py-10 md:px-8 lg:w-2/5 lg:px-8 lg:py-12">
         {/* Top Section: Logo & Main Content */}
         <div>
-          <motion.header className="mb-2" variants={itemVariants}>
-            <div className="flex items-center">
+          <motion.header className="mb-4 sm:mb-6" variants={itemVariants}>
+            <div className="flex min-w-0 items-center">
               <img
                 src="/logo-ammarco.png"
                 alt="AMMARCO Engineering Associates"
-                className="h-24 md:h-32 lg:h-40 w-auto"
+                className="h-16 w-auto shrink-0 sm:h-20 md:h-28 lg:h-36"
               />
-              <div className="ml-4">
-                <p className="text-lg md:text-2xl font-bold text-foreground">AMMARCO</p>
-                <p className="text-xs tracking-wider text-foreground">
+              <div className="ml-3 min-w-0 sm:ml-4">
+                <p className="text-base font-bold text-foreground sm:text-lg md:text-2xl">AMMARCO</p>
+                <p className="text-[10px] tracking-wider text-foreground sm:text-xs">
                   ENGINEERING ASSOCIATES
                 </p>
               </div>
@@ -108,42 +108,42 @@ const HeroSection = () => {
 
           <motion.main variants={containerVariants}>
             <motion.h1
-              className="text-3xl font-heading font-bold leading-normal text-gradient-primary md:text-4xl lg:text-5xl"
+              className="font-heading text-2xl font-bold leading-tight text-gradient-primary sm:text-3xl md:text-4xl lg:text-5xl"
               variants={itemVariants}
             >
               Engineering Pakistan's Future
             </motion.h1>
             <motion.div
-              className="my-4 h-1 w-20 bg-gradient-accent"
+              className="my-3 h-1 w-16 bg-gradient-accent sm:my-4 sm:w-20"
               variants={itemVariants}
             ></motion.div>
             <motion.p
-              className="mb-4 max-w-md text-lg md:text-xl text-muted-foreground leading-relaxed"
+              className="mb-5 max-w-md text-sm leading-relaxed text-muted-foreground sm:mb-6 sm:text-base md:text-lg lg:text-xl"
               variants={itemVariants}
             >
-              Quality and Durability wrapped in a combination of Archetypal Contemporary
-              designs — brought to you through exemplary professionalism.
+              Quality work and lasting construction, with contemporary design
+              and a team you can rely on.
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 mb-4"
+              className="mb-6 flex w-full flex-col gap-3 sm:mb-8 sm:flex-row sm:gap-4"
               variants={itemVariants}
             >
               <Button
                 asChild
                 size="lg"
-                className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-6 text-lg"
+                className="w-full bg-accent px-6 py-5 text-base font-semibold text-white hover:bg-accent/90 sm:w-auto sm:px-8 sm:py-6 sm:text-lg"
               >
                 <Link to="/projects">
-                  Explore Projects <ArrowRight className="ml-2 w-5 h-5" />
+                  Explore Projects <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="font-semibold px-8 py-6 text-lg"
+                className="w-full px-6 py-5 text-base font-semibold sm:w-auto sm:px-8 sm:py-6 sm:text-lg"
               >
                 <Link to="/contact">Get a Quote</Link>
               </Button>
@@ -151,7 +151,7 @@ const HeroSection = () => {
 
             {/* Statistics Cards */}
             <motion.div
-              className="grid grid-cols-2 gap-4 md:gap-6 max-w-md"
+              className="grid max-w-md grid-cols-2 gap-3 sm:gap-4 md:gap-6"
               variants={containerVariants}
             >
               {[
@@ -163,7 +163,7 @@ const HeroSection = () => {
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  className="bg-primary/5 rounded-xl p-4 border border-primary/10 hover:border-primary/30 transition-all"
+                  className="rounded-xl border border-primary/10 bg-primary/5 p-3 transition-all hover:border-primary/30 sm:p-4"
                 >
                   <div className="text-2xl md:text-3xl font-heading font-bold mb-1 text-primary">
                     {stat.number}
@@ -179,8 +179,8 @@ const HeroSection = () => {
         </div>
 
         {/* Bottom Section: Contact Info */}
-        <motion.footer className="mt-12 w-full" variants={itemVariants}>
-          <div className="grid grid-cols-1 gap-4 text-xs text-muted-foreground sm:grid-cols-3 border-t border-border pt-8">
+        <motion.footer className="mt-8 w-full sm:mt-10 lg:mt-12" variants={itemVariants}>
+          <div className="grid grid-cols-1 gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:grid-cols-2 sm:gap-4 sm:pt-8">
             <div className="flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -199,12 +199,10 @@ const HeroSection = () => {
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
               </svg>
               <a
-                href="https://ammarco.pk"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="https://ammarcoassociates.com"
                 className="hover:text-primary transition-colors"
               >
-                ammarco.pk
+                ammarcoassociates.com
               </a>
             </div>
             <div className="flex items-center">
@@ -231,13 +229,13 @@ const HeroSection = () => {
 
       {/* Right Side: Image with Clip Path Animation */}
       <motion.div
-        className="w-full min-h-[400px] bg-cover bg-center md:w-1/2 md:min-h-full lg:w-3/5 relative"
+        className="hero-media relative mt-4 h-56 w-full bg-cover bg-center sm:mt-6 sm:h-72 md:h-96 lg:mt-0 lg:h-auto lg:min-h-full lg:w-3/5"
         style={{
           backgroundImage: `url(https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070)`,
         }}
-        initial={{ clipPath: "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)" }}
-        animate={{ clipPath: "polygon(25% 0, 100% 0, 100% 100%, 0% 100%)" }}
-        transition={{ duration: 1.2, ease: "circOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent"></div>
       </motion.div>

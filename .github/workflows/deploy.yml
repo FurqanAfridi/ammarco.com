@@ -55,25 +55,27 @@ jobs:
     timeout-minutes: 15
 
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: production-build
           path: dist
 
-      - name: Upload build to server
+      - name: Upload build and Nginx config
         id: upload
         continue-on-error: true
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_IP }}
-          port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
           command_timeout: 20m
-          source: dist
+          source: dist,deploy/nginx
           target: /tmp/ammarco-release-${{ github.run_id }}
 
       - name: Retry build upload after network timeout
@@ -81,26 +83,24 @@ jobs:
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_IP }}
-          port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
           command_timeout: 20m
-          source: dist
+          source: dist,deploy/nginx
           target: /tmp/ammarco-release-${{ github.run_id }}
           overwrite: true
 
-      - name: Activate build and rotate backups
+      - name: Activate build, Nginx vhost, and rotate backups
         uses: appleboy/ssh-action@v1
         env:
           RELEASE_ID: ${{ github.run_id }}
           SERVER_MAIN_PASSWORD: ${{ secrets.SERVER_MAIN_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
-          port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
           envs: RELEASE_ID,SERVER_MAIN_PASSWORD
@@ -112,9 +112,20 @@ jobs:
             BACKUP_DIR=/srv/www/ammarco.pk/backups
             RELEASE_ROOT="/tmp/ammarco-release-$RELEASE_ID"
             RELEASE_DIR="$RELEASE_ROOT/dist"
+            NGINX_SRC="$RELEASE_ROOT/deploy/nginx/ammarcoassociates.com.conf"
             STAGING_DIR="$APP_DIR/.dist-staging-$RELEASE_ID"
             PREVIOUS_DIR="$APP_DIR/.dist-previous-$RELEASE_ID"
             BACKUP_NAME="deploy-$(date -u +%Y%m%dT%H%M%SZ)-$RELEASE_ID"
+
+            run_sudo() {
+              if sudo -n true >/dev/null 2>&1; then
+                sudo -n "$@"
+              elif [ -n "${SERVER_MAIN_PASSWORD:-}" ]; then
+                echo "$SERVER_MAIN_PASSWORD" | sudo -S "$@"
+              else
+                "$@"
+              fi
+            }
 
             test -f "$RELEASE_DIR/index.html"
             mkdir -p "$BACKUP_DIR"
@@ -133,13 +144,29 @@ jobs:
               exit 1
             fi
 
-            if ! echo "$SERVER_MAIN_PASSWORD" | sudo -S nginx -t || ! echo "$SERVER_MAIN_PASSWORD" | sudo -S systemctl restart nginx; then
+            if [ -f "$NGINX_SRC" ]; then
+              if [ ! -e /etc/nginx/sites-enabled/ammarcoassociates.com ] && [ ! -e /etc/nginx/sites-available/ammarcoassociates.com ]; then
+                if [ -d /etc/nginx/sites-available ]; then
+                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-available/ammarcoassociates.com
+                  run_sudo ln -sfn /etc/nginx/sites-available/ammarcoassociates.com /etc/nginx/sites-enabled/ammarcoassociates.com
+                else
+                  run_sudo cp "$NGINX_SRC" /etc/nginx/sites-enabled/ammarcoassociates.com
+                fi
+              fi
+            fi
+
+            if ! run_sudo nginx -t || ! run_sudo systemctl reload nginx; then
               rm -rf "$DIST_DIR"
               if [ -d "$PREVIOUS_DIR" ]; then
                 mv "$PREVIOUS_DIR" "$DIST_DIR"
               fi
-              echo "$SERVER_MAIN_PASSWORD" | sudo -S systemctl restart nginx || true
+              run_sudo systemctl reload nginx || run_sudo systemctl restart nginx || true
               exit 1
+            fi
+
+            if [ ! -d /etc/letsencrypt/live/ammarcoassociates.com ]; then
+              run_sudo certbot --nginx -d ammarcoassociates.com -d www.ammarcoassociates.com --non-interactive --agree-tos --redirect -m info@ammarco.pk \
+                || echo "TLS certificate was not issued. Point DNS for ammarcoassociates.com at this server and rerun the workflow."
             fi
 
             rm -rf "$PREVIOUS_DIR" "$RELEASE_ROOT"

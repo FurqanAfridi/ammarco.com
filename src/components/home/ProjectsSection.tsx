@@ -30,14 +30,14 @@ const ProjectsSection = () => {
   ];
 
   return (
-    <section className="py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-primary">
-            Proven Excellence
+    <section className="bg-background py-12 sm:py-16 md:py-20 lg:py-32">
+      <div className="container mx-auto">
+        <div className="mb-10 text-center sm:mb-12 md:mb-16">
+          <h2 className="mb-4 font-heading text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
+            Selected Work
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Delivering world-class projects across Pakistan
+            Work we have delivered across Pakistan
           </p>
         </div>
 

@@ -6,8 +6,8 @@ const Footer = () => {
 
   return (
     <footer className="bg-charcoal text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="container mx-auto py-12 sm:py-16">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4 lg:gap-12">
           {/* Company Info */}
           <div>
             <img 
@@ -15,10 +15,10 @@ const Footer = () => {
               alt="AMMARCO Engineering Associates" 
               loading="lazy"
               decoding="async"
-              className="h-24 w-auto mb-4"
+              className="mb-4 h-16 w-auto sm:h-20 md:h-24"
             />
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Quality and durability wrapped in a combination of archetypal contemporary designs – brought to you through exemplary professionalism.
+              Quality work and lasting construction, with contemporary design and a team you can rely on.
             </p>
             <div className="flex space-x-4">
               <a
@@ -55,10 +55,10 @@ const Footer = () => {
             <h4 className="text-lg font-heading font-semibold mb-4">Services</h4>
             <ul className="space-y-3">
               {[
-                { label: "Civil Construction", href: "/services#civil" },
-                { label: "Electrical Systems", href: "/services#electrical" },
-                { label: "HVAC Solutions", href: "/services#hvac" },
-                { label: "Security Systems", href: "/services#security" },
+                { label: "Civil Construction", href: "/services/civil" },
+                { label: "Electrical Systems", href: "/services/electrical" },
+                { label: "HVAC Solutions", href: "/services/hvac" },
+                { label: "Security Systems", href: "/services/security" },
               ].map((service) => (
                 <li key={service.label}>
                   <Link
@@ -114,8 +114,8 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/10 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">
+          <div className="flex flex-col items-center justify-between space-y-4 text-center md:flex-row md:space-y-0 md:text-left">
+            <p className="text-sm text-gray-400">
               © {currentYear} Ammarco Engineering. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">

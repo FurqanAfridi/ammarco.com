@@ -103,10 +103,27 @@ All colors MUST be HSL.
   body {
     /* stylelint-disable-next-line */
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: clip;
   }
   
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
+  img,
+  svg,
+  video,
+  iframe {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .section {
+    /* stylelint-disable-next-line */
+    @apply py-20 sm:py-24 lg:py-28;
   }
 }
 
@@ -191,14 +208,49 @@ All colors MUST be HSL.
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  100% {
-    transform: translateX(-50%);
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-marquee {
-  animation: marquee 10s linear infinite;
+  animation: marquee 45s linear infinite;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+@media (max-width: 640px) {
+  .animate-marquee {
+    animation-duration: 28s;
+  }
+}
+
+@media (min-width: 1536px) {
+  .animate-marquee {
+    animation-duration: 60s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+
+  .marquee-mask {
+    mask-image: none;
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-media {
+    clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+  }
 }

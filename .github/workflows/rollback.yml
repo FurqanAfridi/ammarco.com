@@ -31,9 +31,8 @@ jobs:
           SERVER_MAIN_PASSWORD: ${{ secrets.SERVER_MAIN_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
-          port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
           timeout: 120s
           envs: BACKUP_NAME,ROLLBACK_ID,SERVER_MAIN_PASSWORD
@@ -82,12 +81,22 @@ jobs:
               exit 1
             fi
 
-            if ! echo "$SERVER_MAIN_PASSWORD" | sudo -S nginx -t || ! echo "$SERVER_MAIN_PASSWORD" | sudo -S systemctl restart nginx; then
+            run_sudo() {
+              if sudo -n true >/dev/null 2>&1; then
+                sudo -n "$@"
+              elif [ -n "${SERVER_MAIN_PASSWORD:-}" ]; then
+                echo "$SERVER_MAIN_PASSWORD" | sudo -S "$@"
+              else
+                "$@"
+              fi
+            }
+
+            if ! run_sudo nginx -t || ! run_sudo systemctl reload nginx; then
               rm -rf "$DIST_DIR"
               if [ -d "$PREVIOUS_DIR" ]; then
                 mv "$PREVIOUS_DIR" "$DIST_DIR"
               fi
-              echo "$SERVER_MAIN_PASSWORD" | sudo -S systemctl restart nginx || true
+              run_sudo systemctl reload nginx || run_sudo systemctl restart nginx || true
               exit 1
             fi
 

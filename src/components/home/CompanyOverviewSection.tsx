@@ -2,13 +2,13 @@ import { motion } from "framer-motion";
 
 const CompanyOverviewSection = () => {
   return (
-    <section className="py-20 lg:py-32 bg-background relative overflow-hidden">
+    <section className="relative overflow-hidden bg-background py-12 sm:py-16 md:py-20 lg:py-32">
       {/* Decorative geometric shapes */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+      <div className="container relative z-10 mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -16,18 +16,18 @@ const CompanyOverviewSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-primary">
+            <h2 className="mb-4 font-heading text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl">
               Who We Are
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p className="text-lg">
-              Ammarco is the exclusive registered entity of its kind in Pakistan, supported by a comprehensive network and official government accreditation.
+              <p className="text-base sm:text-lg">
+                Ammarco is a registered engineering firm in Pakistan, with a nationwide network and official government accreditation.
               </p>
-              <p className="text-lg">
-                Ammarco gratifies itself in bringing in its professional services for interior & exterior design consultancy, planning and execution of business & residential projects. Equipped with specialized and experienced team of technical staff; Civil Engineers, Electrical Engineers, Mechanical Engineers, MEP Engineers & Sub Engineers.
+              <p className="text-base sm:text-lg">
+                We plan and deliver interior and exterior design for commercial and residential projects. The team includes civil, electrical, mechanical, and MEP engineers who stay with the job from drawings to handover.
               </p>
-              <p className="text-lg">
-                Ammarco Engineering Associates is a young multi-disciplinary enterprise based in Islamabad. Our designs draw onboard perception of inspired ideas and innovative problem solving, cultivated through the multi-cultural setting within our offices. The end result is vibrant, energetic and original architectural solutions that explore the juxtaposition of modern architecture, nature and traditional designs.
+              <p className="text-base sm:text-lg">
+                Ammarco Engineering Associates is based in Islamabad. We mix modern architecture with local and traditional design so each project feels considered, not generic.
               </p>
             </div>
           </motion.div>

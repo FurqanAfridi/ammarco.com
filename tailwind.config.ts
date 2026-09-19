@@ -8,7 +8,11 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.5rem",
+        lg: "2rem",
+      },
       screens: {
         "2xl": "1400px",
       },
@@ -79,6 +83,10 @@ export default {
             height: "0",
           },
         },
+        marquee: {
+          from: { transform: "translate3d(0,0,0)" },
+          to: { transform: "translate3d(-50%,0,0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -86,7 +94,7 @@ export default {
         "fade-in": "fadeIn 0.6s ease-out",
         "slide-up": "slideUp 0.6s ease-out",
         "slide-in-right": "slideInRight 0.6s ease-out",
-        "marquee": "marquee 30s linear infinite",
+        marquee: "marquee 45s linear infinite",
       },
     },
   },

@@ -8,7 +8,7 @@ const LeadershipSection = () => {
       title: "CEO & Founder",
       role: "Chief Executive Officer",
       linkedin: "",
-      description: "Visionary leader driving Ammarco's growth and strategic direction",
+      description: "Leads Ammarco's growth and the direction of the company",
       image: "/Ammar.jpeg",
     },
     {
@@ -16,7 +16,7 @@ const LeadershipSection = () => {
       title: "Head of Operations",
       role: "Operations Excellence",
       linkedin: "",
-      description: "Overseeing all operational excellence and project delivery",
+      description: "Looks after day-to-day operations and project delivery",
       image: "/Tajdar.jpeg",
     },
 
@@ -25,28 +25,28 @@ const LeadershipSection = () => {
       title: "Director Technical",
       role: "Technical Support",
       linkedin: "",
-      description: "Leading technical support and engineering solutions",
+      description: "Heads technical support and engineering work",
       image: null,
     },
   ];
 
   return (
-    <section className="py-20 lg:py-32 bg-muted">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-muted py-12 sm:py-16 md:py-20 lg:py-32">
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-10 text-center sm:mb-12 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 text-primary">
-            Visionary Leadership
+          <h2 className="mb-4 font-heading text-3xl font-bold text-primary sm:text-4xl md:text-5xl lg:text-6xl">
+            Our Leadership
           </h2>
           <div className="w-24 h-1 bg-gradient-accent mx-auto rounded-full" />
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
+        <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-5 sm:gap-6 md:gap-8">
           {leaders.map((leader, index) => (
             <motion.div
               key={index}
@@ -55,7 +55,7 @@ const LeadershipSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group w-full max-w-sm md:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] bg-card rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group w-full max-w-sm overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:shadow-xl sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.25rem)]"
             >
               {/* Avatar */}
               <div className="w-full aspect-[5/7] bg-gradient-to-br from-primary to-secondary flex items-center justify-center relative">

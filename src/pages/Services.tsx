@@ -1,348 +1,121 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  Layout,
   Building2,
-  Zap,
   Droplets,
-  Wind,
   Flame,
+  Layout,
+  Power,
   Shield,
   Sun,
-  Power,
   Wifi,
-  CheckCircle,
+  Wind,
+  Zap,
 } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+import Seo from "@/components/Seo";
+import Reveal from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { getServiceBySlug, services, type ServiceIconName } from "@/data/services";
+
+const icons: Record<ServiceIconName, typeof Layout> = {
+  layout: Layout,
+  building: Building2,
+  zap: Zap,
+  droplets: Droplets,
+  wind: Wind,
+  flame: Flame,
+  shield: Shield,
+  sun: Sun,
+  power: Power,
+  wifi: Wifi,
+};
 
 const Services = () => {
-  const services = [
-    {
-      id: "interior",
-      icon: Layout,
-      title: "Interior & Exterior Design",
-      description:
-        "Professional interior and exterior design consultancy for business & residential projects.",
-      detailedDescription: `Ammarco deems that interior of your Premises should manifest an expression as your signature. The spaces we design profess your personality, class, taste and grandeur. We provide appropriate services rendered by a team of adroit professionals in order to guarantee excellence in every detail. We guarantee fabulous impression of your facade.`,
-      features: [
-        "Design consultancy and space planning",
-        "Interior design for business & residential",
-        "Exterior design and facade treatment",
-        "Material selection and sourcing",
-        "Color schemes and aesthetics",
-        "Execution supervision and quality control",
-      ],
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158",
-    },
-    {
-      id: "civil",
-      icon: Building2,
-      title: "Civil Works",
-      description:
-        "Active engagement in Civil Construction Works with skilled and qualified engineers.",
-      detailedDescription: `Ammarco is actively engaged in Civil Construction Works for our valuable clients. These services are rendered by our team of skilled and qualified engineers. We use superior grade materials and latest technology machines while rendering these services. Our quality controllers supervise the entire process in order to ensure first class quality.`,
-      features: [
-        "Modern & institutional buildings",
-        "Hospitals and healthcare facilities",
-        "Parking areas and garages",
-        "Shopping malls and retail centers",
-        "Celebration & event halls",
-        "Commercial complexes and office buildings",
-        "Project management and supervision",
-        "Quality assurance and compliance",
-      ],
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070",
-    },
-    {
-      id: "electrical",
-      icon: Zap,
-      title: "Electrical Works",
-      description: "Complete electrical fitting services for commercial and residential sectors.",
-      detailedDescription: `Electrical fitting services that we offer to various commercial and residential sectors are provided according to clients' project requirements. We use excellent quality electrical fitting materials & items that are procured from authorized and quality driven vendors. Services are offered after complete planning and designing of working modules.`,
-      features: [
-        "Complete electrical installations",
-        "Power distribution systems",
-        "Lighting design and installation",
-        "Backup generators and emergency systems",
-        "Smart building automation",
-        "Energy-efficient solutions",
-        "Electrical safety inspections",
-        "Maintenance and troubleshooting",
-      ],
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070",
-    },
-    {
-      id: "plumbing",
-      icon: Droplets,
-      title: "Plumbing Services",
-      description:
-        "Comprehensive plumbing services including sewer, drainage, and septic systems.",
-      detailedDescription: `Plumbing services that Ammarco offers to our esteemed clients include various kinds of sewer and drainage pipe fittings and setting up septic tanks, manholes and many more. Operational inspection of undertaken projects before handover with complete satisfaction.`,
-      features: [
-        "Sewer and drainage systems",
-        "Pipe fittings and installations",
-        "Septic tank setup and maintenance",
-        "Manhole construction",
-        "Water supply systems",
-        "Fixtures and fittings",
-        "Operational inspection",
-        "Quality verification before handover",
-      ],
-      image: "/plumbing.png",
-    },
-    {
-      id: "hvac",
-      icon: Wind,
-      title: "HVAC Systems",
-      description:
-        "Complete heating, ventilation, and air conditioning solutions designed for optimal climate control.",
-      detailedDescription: `Complete HVAC installations ensuring optimal comfort and energy efficiency. Our systems are designed for perfect climate control and air quality in all types of environments.`,
-      features: [
-        "HVAC system design and planning",
-        "Central air conditioning installation",
-        "Ventilation and air quality systems",
-        "Energy recovery ventilators",
-        "Climate control automation",
-        "Preventive maintenance programs",
-        "System optimization and upgrades",
-        "24/7 technical support",
-      ],
-      image: "/HVAC.webp",
-    },
-    {
-      id: "firefighting",
-      icon: Flame,
-      title: "Firefighting & Panic Alarms",
-      description: "Comprehensive fire safety systems and emergency alert installations.",
-      detailedDescription: `Complete fire safety systems and emergency alert installations to ensure maximum safety and compliance with international standards. We provide end-to-end firefighting solutions for complete protection.`,
-      features: [
-        "Fire detection systems",
-        "Fire suppression systems",
-        "Panic alarm installations",
-        "Emergency response systems",
-        "Sprinkler systems",
-        "Fire extinguisher installation",
-        "Safety compliance audits",
-        "Regular maintenance and testing",
-      ],
-      image: "/Fire-Alarms-Blare.jpg",
-    },
-    {
-      id: "security",
-      icon: Shield,
-      title: "CCTV & Security Systems",
-      description: "Advanced surveillance and security alarm systems for comprehensive protection.",
-      detailedDescription: `Advanced surveillance and security alarm systems providing comprehensive protection for your premises. Integrated security solutions with CCTV, security alarms, and comprehensive monitoring solutions.`,
-      features: [
-        "CCTV camera installation",
-        "IP surveillance systems",
-        "Access control solutions",
-        "Security alarm systems",
-        "Intrusion detection",
-        "Perimeter security",
-        "24/7 monitoring integration",
-        "Security system maintenance",
-      ],
-      image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070",
-    },
-    {
-      id: "solar",
-      icon: Sun,
-      title: "Solar Panel Installation",
-      description: "Sustainable solar energy solutions for reduced operational costs and environmental impact.",
-      detailedDescription: `Sustainable solar energy solutions for reduced electricity costs and environmental impact. Eco-friendly solar panel installations providing reliable renewable energy options with long-term savings and government incentives.`,
-      features: [
-        "Solar panel installation",
-        "Grid-tied systems",
-        "Off-grid solutions",
-        "Battery backup systems",
-        "Energy storage solutions",
-        "Government incentive assistance",
-        "Maintenance and monitoring",
-        "Energy efficiency consulting",
-      ],
-      image: "https://images.unsplash.com/photo-1498354178607-a79df2916198?q=80&w=2070",
-    },
-    {
-      id: "generators",
-      icon: Power,
-      title: "Generators & UPS Systems",
-      description: "Reliable backup power solutions ensuring uninterrupted operations.",
-      detailedDescription: `Reliable backup power solutions ensuring uninterrupted operations. Backup power systems including generators and UPS to ensure your operations never stop, even during power outages.`,
-      features: [
-        "Generator installation",
-        "UPS systems",
-        "Power backup solutions",
-        "Automatic transfer switches",
-        "Load management systems",
-        "Emergency power systems",
-        "Maintenance services",
-        "24/7 monitoring",
-      ],
-      image: "/differences-between-generators-and-ups-systems.webp",
-    },
-    {
-      id: "networking",
-      icon: Wifi,
-      title: "Data & Voice Networking",
-      description: "Complete IT infrastructure including communication racks, data cabinets, and networking solutions.",
-      detailedDescription: `Complete networking infrastructure including communication racks, data cabinets, and networking solutions. Data and voice networking, distribution switchgears, control panels, communication racks, and data cabinets for seamless connectivity.`,
-      features: [
-        "Network infrastructure setup",
-        "Data center solutions",
-        "Communication racks installation",
-        "Data cabinets and server rooms",
-        "Cable management systems",
-        "Switchgears and control panels",
-        "VoIP systems",
-        "Network maintenance and support",
-      ],
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070",
-    },
-  ];
+  const { hash } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const slug = hash.replace("#", "");
+    if (slug && getServiceBySlug(slug)) {
+      navigate(`/services/${slug}`, { replace: true });
+    }
+  }, [hash, navigate]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
+      <Seo
+        title="Engineering Services in Pakistan | Ammarco"
+        description="Interior design, civil construction, electrical, HVAC, plumbing, solar, security, and networking services from Ammarco Engineering Associates in Islamabad."
+        path="/services"
+      />
       <Navigation />
+      <PageHero
+        title="What We Do"
+        subtitle="From design through handover, under one engineering team in Islamabad."
+        eyebrow="Services"
+      />
 
-      {/* Hero Section */}
-      <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 gradient-accent text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-primary" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 sm:mb-6"
-          >
-            Comprehensive Engineering Solutions
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto"
-          >
-            From design to delivery, we handle every aspect
-          </motion.p>
+      <section className="section bg-background">
+        <div className="container mx-auto">
+          <Reveal className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
+            <h2 className="font-heading text-2xl font-semibold text-primary sm:text-3xl">
+              Engineering services, page by page
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Each page covers who the work is for, what happens on site, how we run the job, and the questions clients usually ask before they call.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {services.map((service) => {
+              const Icon = icons[service.icon];
+              return (
+                <article
+                  key={service.slug}
+                  className="overflow-hidden rounded-3xl border border-border bg-card"
+                >
+                  <img
+                    src={service.image}
+                    alt={service.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-52 w-full object-cover"
+                  />
+                  <div className="p-6 sm:p-8">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-accent">
+                      <Icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h2 className="font-heading text-xl font-semibold text-primary sm:text-2xl">
+                      <Link to={`/services/${service.slug}`} className="hover:text-secondary">
+                        {service.title}
+                      </Link>
+                    </h2>
+                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">{service.summary}</p>
+                    <Link
+                      to={`/services/${service.slug}`}
+                      className="mt-5 inline-flex text-sm font-semibold text-primary hover:text-secondary"
+                    >
+                      Read the {service.shortTitle.toLowerCase()} page
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Services Detail Sections */}
-      {services.map((service, index) => (
-        <motion.section
-          id={service.id}
-          key={index}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: index * 0.1 }}
-          className={`scroll-mt-28 py-12 sm:py-16 md:py-20 ${index % 2 === 0 ? "bg-background" : "bg-muted"}`}
-        >
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                index % 2 === 1 ? "lg:grid-flow-dense" : ""
-              }`}
-            >
-              {/* Image */}
-              <motion.div
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className={`relative h-64 sm:h-80 md:h-96 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ${
-                  index % 2 === 1 ? "lg:col-start-2" : ""
-                }`}
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  loading={index < 2 ? "eager" : "lazy"}
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-              </motion.div>
-
-              {/* Content */}
-              <motion.div
-                initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}
-              >
-                <div className="w-16 h-16 bg-gradient-accent rounded-2xl flex items-center justify-center mb-6">
-                  <service.icon className="w-8 h-8 text-white" />
-                </div>
-                <h2 className="text-4xl font-heading font-bold mb-4 text-primary">
-                  {service.title}
-                </h2>
-                <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-                  {service.description}
-                </p>
-                <p className="text-base text-muted-foreground mb-8 leading-relaxed">
-                  {service.detailedDescription}
-                </p>
-
-                {/* Features List */}
-                <ul className="space-y-3 mb-8">
-                  {service.features.map((feature, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: idx * 0.05 }}
-                      className="flex items-start"
-                    >
-                      <CheckCircle className="w-6 h-6 text-secondary mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-
-                <Button
-                  asChild
-                  className="bg-primary hover:bg-primary/90 text-white font-semibold"
-                >
-                  <Link to="/contact">Request Consultation</Link>
-                </Button>
-              </motion.div>
-            </div>
-          </div>
-        </motion.section>
-      ))}
-
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-primary text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-heading font-bold mb-6"
-          >
-            Ready to Start Your Project?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto"
-          >
-            Let's discuss how our services can bring your vision to life
-          </motion.p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-accent hover:bg-accent/90 text-white font-semibold px-10"
-          >
-            <Link to="/contact">Contact Us Today</Link>
+      <section className="section bg-primary text-white">
+        <div className="container mx-auto max-w-3xl text-center">
+          <h2 className="font-heading text-3xl font-semibold sm:text-4xl">Not sure which service you need?</h2>
+          <p className="mx-auto mt-4 max-w-xl text-base text-white/75 sm:text-lg">
+            Describe the building and we will point you to the right team.
+          </p>
+          <Button asChild size="lg" className="mt-8 rounded-full bg-accent px-8 font-semibold text-white hover:bg-accent/90">
+            <Link to="/contact">Talk to us</Link>
           </Button>
         </div>
       </section>

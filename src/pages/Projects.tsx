@@ -151,26 +151,26 @@ const Projects = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Navigation />
 
       {/* Hero Section */}
       <section className="pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-br from-primary to-primary/80 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/20 to-primary" />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="container mx-auto text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-4 sm:mb-6"
           >
-            Our Work Speaks for Itself
+            Projects Across Pakistan
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto"
+            className="mx-auto max-w-3xl text-base text-gray-200 sm:text-lg md:text-2xl"
           >
             200+ Projects Delivered Across Pakistan
           </motion.p>
@@ -179,7 +179,7 @@ const Projects = () => {
 
       {/* Project Statistics */}
       <section className="py-12 sm:py-16 bg-gradient-to-br from-primary to-primary/80 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <motion.div
@@ -203,8 +203,8 @@ const Projects = () => {
       </section>
 
       {/* Filter Buttons */}
-      <section className="py-12 bg-muted sticky top-28 z-40 backdrop-blur-md bg-muted/95">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="sticky top-16 z-30 bg-muted/95 py-4 backdrop-blur-md sm:top-20 sm:py-6 md:py-8">
+        <div className="container mx-auto">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <Button
@@ -226,13 +226,13 @@ const Projects = () => {
 
       {/* Featured Projects */}
       {filter === "All" && (
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-background py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-heading font-bold mb-12 text-primary text-center"
+              className="mb-8 text-center font-heading text-3xl font-bold text-primary sm:mb-12 sm:text-4xl md:text-5xl"
             >
               Featured Projects
             </motion.h2>
@@ -248,7 +248,7 @@ const Projects = () => {
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                     {/* Image Side */}
-                    <div className="relative h-96 lg:h-auto overflow-hidden">
+                    <div className="relative h-56 overflow-hidden sm:h-72 md:h-80 lg:h-auto">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -268,9 +268,9 @@ const Projects = () => {
                     </div>
 
                     {/* Content Side */}
-                    <div className="p-8 lg:p-12 flex flex-col justify-between">
+                    <div className="flex flex-col justify-between p-5 sm:p-8 lg:p-12">
                       <div>
-                        <h3 className="text-3xl font-heading font-bold mb-3 text-primary">
+                        <h3 className="mb-3 font-heading text-2xl font-bold text-primary sm:text-3xl">
                           {project.title}
                         </h3>
                         <p className="text-lg text-secondary font-semibold mb-2">
@@ -335,15 +335,15 @@ const Projects = () => {
       )}
 
       {/* Projects Grid */}
-      <section className="py-20 bg-muted">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-muted py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-heading font-bold mb-12 text-primary text-center"
+            className="mb-8 text-center font-heading text-3xl font-bold text-primary sm:mb-12 sm:text-4xl md:text-5xl"
           >
-            {filter === "All" ? "Other Projects" : `Projects - ${filter}`}
+            {filter === "All" ? "Other Projects" : `Projects: ${filter}`}
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {gridProjects.map((project, index) => (

@@ -4,7 +4,7 @@ import { Phone } from "lucide-react";
 
 const CTASection = () => {
   return (
-    <section className="py-20 lg:py-32 gradient-accent relative overflow-hidden">
+    <section className="gradient-accent relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-32">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%">
@@ -24,26 +24,26 @@ const CTASection = () => {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
+      <div className="container relative z-10 mx-auto text-center">
+        <h2 className="mb-4 font-heading text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
           Ready to Work Together?
         </h2>
-        <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-2xl mx-auto">
-          Let's build something extraordinary. Get in touch today to discuss your project.
+        <p className="mx-auto mb-8 max-w-2xl text-base text-white/90 sm:mb-10 sm:text-xl md:text-2xl">
+          Have a project in mind? Call us or send a brief and we will get back to you.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button
             asChild
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-white font-semibold px-10 py-6 text-lg shadow-xl hover:shadow-2xl transition-all"
+            className="w-full bg-accent px-8 py-5 text-base font-semibold text-white shadow-xl transition-all hover:bg-accent/90 hover:shadow-2xl sm:w-auto sm:px-10 sm:py-6 sm:text-lg"
           >
             <Link to="/contact">Request a Quote</Link>
           </Button>
 
           <a
             href="tel:+923335766744"
-            className="inline-flex items-center text-white font-medium hover:text-accent transition-colors text-lg"
+            className="inline-flex items-center text-base font-medium text-white transition-colors hover:text-accent sm:text-lg"
           >
             <Phone className="w-5 h-5 mr-2" />
             Call: +92 333 5766744
