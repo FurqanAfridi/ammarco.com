@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       ssh_port:
-        description: "SSH port if 22 is closed. Leave blank to use SERVER_PORT or 22."
+        description: "SSH port if SERVER_PORT is unset. Leave blank to use SERVER_PORT or 2321."
         required: false
         default: ""
         type: string
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      SSH_PORT: ${{ github.event.inputs.ssh_port || secrets.SERVER_PORT || 22 }}
+      SSH_PORT: ${{ github.event.inputs.ssh_port || secrets.SERVER_PORT || 2321 }}
 
     steps:
       - name: Check out repository
@@ -129,12 +129,13 @@ jobs:
             BACKUP_NAME="deploy-$(date -u +%Y%m%dT%H%M%SZ)-$RELEASE_ID"
 
             run_sudo() {
-              if sudo -n true >/dev/null 2>&1; then
+              if [ -n "${SERVER_MAIN_PASSWORD:-}" ]; then
+                printf '%s\n' "$SERVER_MAIN_PASSWORD" | sudo -S -p '' "$@"
+              elif sudo -n true >/dev/null 2>&1; then
                 sudo -n "$@"
-              elif [ -n "${SERVER_MAIN_PASSWORD:-}" ]; then
-                echo "$SERVER_MAIN_PASSWORD" | sudo -S "$@"
               else
-                "$@"
+                echo "sudo is required for: $*" >&2
+                exit 1
               fi
             }
 

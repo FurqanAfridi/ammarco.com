@@ -31,7 +31,7 @@ jobs:
           SERVER_MAIN_PASSWORD: ${{ secrets.SERVER_MAIN_PASSWORD }}
         with:
           host: ${{ secrets.SERVER_IP }}
-          port: ${{ secrets.SERVER_PORT || 22 }}
+          port: ${{ secrets.SERVER_PORT || 2321 }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_PASSWORD_SSH }}
           passphrase: ${{ secrets.SERVER_PASSPHASE_KEY }}
@@ -83,12 +83,13 @@ jobs:
             fi
 
             run_sudo() {
-              if sudo -n true >/dev/null 2>&1; then
+              if [ -n "${SERVER_MAIN_PASSWORD:-}" ]; then
+                printf '%s\n' "$SERVER_MAIN_PASSWORD" | sudo -S -p '' "$@"
+              elif sudo -n true >/dev/null 2>&1; then
                 sudo -n "$@"
-              elif [ -n "${SERVER_MAIN_PASSWORD:-}" ]; then
-                echo "$SERVER_MAIN_PASSWORD" | sudo -S "$@"
               else
-                "$@"
+                echo "sudo is required for: $*" >&2
+                exit 1
               fi
             }
 
